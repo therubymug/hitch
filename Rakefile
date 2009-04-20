@@ -32,7 +32,7 @@ require 'fileutils'
 
 spec = Gem::Specification.new do |s|
   s.name = %q{hitch}
-  s.version = "0.0.2"
+  s.version = Hitch::VERSION
   s.summary = %q{Hitch allows developers to be properly credited when Pair Programming and using Git.}
   s.email = %q{ro@hashrocket.com}
   s.homepage = %q{http://github.com/therubymug/hitch}
