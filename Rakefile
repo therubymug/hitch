@@ -32,7 +32,7 @@ require 'fileutils'
 
 spec = Gem::Specification.new do |s|
   s.name = %q{hitch}
-  s.version = "0.0.1"
+  s.version = "0.0.2"
   s.summary = %q{Hitch allows developers to be properly credited when Pair Programming and using Git.}
   s.email = %q{ro@hashrocket.com}
   s.homepage = %q{http://github.com/therubymug/hitch}
@@ -41,6 +41,7 @@ spec = Gem::Specification.new do |s|
   s.files = %w( README.rdoc Rakefile ) + Dir["{bin,lib}/**/*"].sort
   s.extra_rdoc_files = ["README.rdoc"]
   s.executables = ["hitch", "unhitch", "hitchrc"]
+  s.add_dependency('highline', '>= 1.5.0')
 end
 
 desc "Generate the static gemspec required for github"

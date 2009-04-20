@@ -1,4 +1,4 @@
-hitch
+= hitch
     by Rogelio J. Samour
     http://therubymug.com
 
@@ -8,25 +8,41 @@ Hitch allows developers to be properly credited when Pair Programming and using 
 
 == FEATURES/PROBLEMS:
 
-* General Awesomeness
+* Persists pair(s) between different terminal instances.
+* Creates a unique email address for the pair. (e.g. dev+leshill+therubymug@hashrocket.com) This provides the ability to create a Gravatar for the pair.
 
 == SYNOPSIS:
 
-  hitch tpope
+- First, create your hitchrc by running:
+  - hitchrc
+- To pair with leshill:
+  - hitch leshill
+- To see a list of available pairs:
+  - hitch -i
+- To clear pair info:
+  - unhitch
+- Creating a Gravatar for your pair:
+  - Once I've hitched with my pair. (e.g. hitch leshill) I have now created a unique email: dev+leshill+therubymug@hashrocket.com
+  - Then, I go to gravatar.com. Add an image to that particular email address and I'm done.
 
 == REQUIREMENTS:
 
-* Git, RubyGems
+* Git, HighLine
 
 == INSTALL:
 
 * sudo gem install therubymug-hitch
 
+== ACKNOWLEDGEMENTS:
+
+* Les Hill - Refactoring.
+* Tim Pope - Original idea.
+
 == LICENSE:
 
 (The MIT License)
 
-Copyright (c) 2008 Rogelio J. Samour
+Copyright (c) 2009 Rogelio J. Samour
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
