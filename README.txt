@@ -6,7 +6,7 @@
 
 Hitch allows developers to be properly credited when Pair Programming and using Git.
 
-== FEATURES/PROBLEMS:
+== FEATURES:
 
 * Persists pair(s) between different terminal instances.
 * Creates a unique email address for the pair. (e.g. dev+leshill+therubymug@hashrocket.com) This provides the ability to create a Gravatar for the pair.
@@ -33,9 +33,14 @@ Hitch allows developers to be properly credited when Pair Programming and using 
 
 * sudo gem install therubymug-hitch
 
+== TODO:
+
+* Only modify a particular project's .git/config
+* Only have one binary with different arguments. e.g. hitch -u (to unhitch)
+
 == ACKNOWLEDGEMENTS:
 
-* Les Hill - Refactoring.
+* Les Hill - Refactoring and great "blog post":.
 * Tim Pope - Original idea.
 
 == LICENSE:
