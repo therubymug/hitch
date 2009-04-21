@@ -40,7 +40,7 @@ Hitch allows developers to be properly credited when Pair Programming and using 
 
 == ACKNOWLEDGEMENTS:
 
-* Les Hill - Refactoring and great "blog post":.
+* Les Hill - Refactoring and great blog post http://blog.leshill.org/blog/2009/04/20/pairing-with-hitch.html
 * Tim Pope - Original idea.
 
 == LICENSE:
