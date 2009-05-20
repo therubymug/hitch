@@ -25,6 +25,7 @@ PROJ.url = 'http://github.com/therubymug/hitch'
 PROJ.version = Hitch::VERSION
 PROJ.rubyforge.name = 'hitch'
 PROJ.dependencies = ['highline']
+PROJ.readme_file = 'README.rdoc'
 
 PROJ.spec.opts << '--color'
 
