@@ -1,8 +1,10 @@
 require 'highline'
+require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch options]))
 
 module Hitch
+
   # :stopdoc:
-  VERSION = '0.0.3'
+  VERSION = '0.5.0'
   LIBPATH = ::File.expand_path(::File.dirname(__FILE__)) + ::File::SEPARATOR
   PATH = ::File.dirname(LIBPATH) + ::File::SEPARATOR
   # :startdoc:
@@ -45,7 +47,7 @@ module Hitch
   HighLine.track_eof = false
 
   def write_hitchrc
-    personal_info['pairing_with'] = pairing_with
+    personal_info['current_pair'] = current_pair
     File.open(hitchrc, File::CREAT|File::TRUNC|File::RDWR, 0644) do |out|
       YAML.dump(personal_info, out)
     end
@@ -85,17 +87,9 @@ module Hitch
     @ui ||= HighLine.new
   end
 
-  def valid_hitchrc?(hitchrc)
-    return false if hitchrc.empty?
-    return false if hitchrc['my_name'].empty?
-    return false if hitchrc['my_github'].empty?
-    return false if hitchrc['group_email'].empty?
-    return true
-  end
-
   def write_gitconfig
     clean_gitconfig
-    File.open(File.join(ENV['HOME'], ".gitconfig"), "a+") do |f|
+    File.open(hitch_options.current_gitconfig, "a+") do |f|
       f.puts "# start - lines added by hitch #"
       f.puts "[user]"
       f.puts "\tname = '#{hitch_name}'"
@@ -105,13 +99,13 @@ module Hitch
   end
 
   def add_pair(git_name)
-    pairing_with << git_name
-    pairing_with.sort!
-    pairing_with.uniq!
+    current_pair << git_name
+    current_pair.sort!
+    current_pair.uniq!
   end
 
-  def pairing_with
-    @pairing_with ||= (personal_info['pairing_with'] or [])
+  def current_pair
+    @current_pair ||= (personal_info['current_pair'] or [])
   end
 
   def hitch_name
@@ -123,8 +117,7 @@ module Hitch
   end
 
   def my_pairs_and_i
-    and_i = pairing_with.map {|github| [github, pairs[github]]}
-    and_i << [personal_info['my_github'], personal_info['my_name']]
+    and_i = current_pair.map {|github| [github, pairs[github]]}
     and_i.sort_by {|github, name| github }
   end
 
@@ -136,8 +129,9 @@ module Hitch
     personal_info['group_email'].split('@').last
   end
 
-  def clean_gitconfig
-    config_file = File.expand_path("~/.gitconfig")
+  def clean_gitconfig(opts={:print => false})
+    config_file = hitch_options.current_gitconfig
+    ui.say " Clearing hitch info in: #{config_file}" if opts[:print]
     body = File.read(config_file)
     body.gsub!(/# start - lines added by hitch #\n.*?\n# end - lines added by hitch #\n/m, '')
     File.open(config_file + ".tmp", 'w') {|f| f.write(body)}
@@ -156,14 +150,14 @@ module Hitch
     if personal_info
       clear_pair_info
       write_hitchrc
-      clean_gitconfig
+      clean_gitconfig(:print => true)
       print_current_status
     end
   end
 
   def print_current_status
     if pairing?
-      ui.say " Currently pairing with #{pairing_with.join(' ')}."
+      ui.say " Currently pairing with #{current_pair.join(' ')}."
     else
       ui.say " Currently coding solo."
     end
@@ -173,24 +167,14 @@ module Hitch
     ui.say "hitch v#{Hitch.version}"
   end
 
-  def print_help
-    print_version
-    ui.say ""
-    ui.say "Usage:"
-    ui.say "\thitch <github_username>"
-    ui.say "\thitch -i to see all available pairs"
-    ui.say "\tunhitch to clear"
-    ui.say "\thitchrc to create ~/.hitchrc"
-    ui.say ""
-  end
-
   def clear_pair_info
-    personal_info['pairing_with'] = []
+    personal_info['current_pair'] = []
   end
 
   def pairing?
     return false if personal_info.empty?
-    return false if personal_info['pairing_with'].nil? || personal_info['pairing_with'].length.zero?
+    return false if personal_info['current_pair'].nil? || personal_info['current_pair'].length.zero?
+    return false if personal_info['current_pair'].length < 2
     true
   end
 
@@ -198,75 +182,52 @@ module Hitch
     pairs.any? {|github, name| github == pair}
   end
 
-  def interactive
-    key = pair_name = ""
-    ui.choose do |menu|
-      menu.prompt = "Who is your pair?"
-      pairs.sort_by {|github, name| github }.each do |github, name|
-        menu_label = github == personal_info['my_github'] ? "#{github}: #{personal_info['my_name']} (Pick yourself to code solo)" : "#{github}: #{name}"
-        menu.choice(menu_label) do
-          clear_pair_info
-          unless github == personal_info['my_github']
-            add_pair(github)
-          end
-        end
-      end
-    end
-    write_hitchrc
-    prep_gitconfig
+  def hitch_options
+    @hitch_options ||= Options.parse(ARGV)
   end
 
   def hitch
-    opts = ARGV
-    case opts
-    when ["-i"]
-      interactive
-    when ["-h"]
-      print_help
-    when ["-v"]
-      print_version
-    else
-      if opts.any?
+    case hitch_options.action
+    when "manage_hitchrc"
+      manage_hitchrc
+    when "unhitch"
+      unhitch
+    when "hitch"
+      if ARGV.any? && ARGV.size >= 2
+        potential_pairs = ARGV
         save_pairs = false
         clear_pair_info
 
-        opts.each do |opt|
-          unless existing_pair?(opt)
-            ui.say("I don't know who #{opt} is.")
-            if ui.agree("Do you want to add #{opt} to ~/.hitch_pairs?  ", true)
-              pairs[opt] = ui.ask("What is #{opt}'s full name?") do |q|
-                q.validate = /\A[(\w+)\s?]+\Z/
+        potential_pairs.each do |pair|
+          unless existing_pair?(pair)
+            ui.say("I don't know who #{pair} is.")
+            if ui.agree("Do you want to add #{pair} to ~/.hitch_pairs?  ", true)
+              pairs[pair] = ui.ask("What is #{pair}'s full name?") do |q|
+                q.validate = /\A[(\w|.,)+\s?]+\Z/
               end
-              add_pair(opt)
+              add_pair(pair)
               save_pairs ||= true
             else
-              ui.say("Ignoring #{opt}.")
+              ui.say("Ignoring #{pair}.")
             end
           else
-            add_pair(opt)
+            add_pair(pair)
           end
         end
         write_hitchrc
         write_hitch_pairs if save_pairs
         prep_gitconfig
+      else
+        ui.say " Silly Rabbit! A pair is comprised of two." unless ARGV.size.zero?
       end
-
       print_current_status
     end
   end
 
-  def create_hitchrc
+  def manage_hitchrc
     begin
       unless File.exists?(hitchrc) and !ui.agree("Do you want to overwrite your #{ENV['HOME']}/.hitchrc file?", true)
-        ui.say("We need to setup your #{ENV['HOME']}/.hitchrc file")
-        personal_info['my_name'] = ui.ask("What is your full name?") do |q|
-          q.validate = /\A([\w\.\(\)]+\s?)+\z/
-        end
-
-        personal_info['my_github'] = ui.ask("What is your github username?") do |q|
-          q.case     = :down
-          q.validate = /\A[a-z0-9\-]+\z/
-        end
+        ui.say("Let's setup your #{ENV['HOME']}/.hitchrc file")
 
         personal_info['group_email'] = ui.ask("What is the group email? e.g. dev@hashrocket.com will become dev+therubymug+leshill@hashrocket.com") do |q|
           q.case     = :down
@@ -284,5 +245,3 @@ module Hitch
 end  # module Hitch
 
 Hitch.require_all_libs_relative_to(__FILE__)
-
-# EOF
