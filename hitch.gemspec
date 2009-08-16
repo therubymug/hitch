@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{hitch}
-  s.version = "0.0.3"
+  s.version = "0.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Rogelio Samour", "Les Hill"]
@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email = %q{ro@hashrocket.com}
   s.executables = ["hitch", "unhitch", "hitchrc"]
   s.extra_rdoc_files = ["README.rdoc"]
-  s.files = ["README.rdoc", "Rakefile", "bin/hitch", "bin/hitchrc", "bin/unhitch", "lib/hitch.rb"]
+  s.files = ["README.rdoc", "Rakefile", "bin/hitch", "bin/hitchrc", "bin/unhitch", "lib/hitch.rb", "lib/hitch/options.rb"]
   s.homepage = %q{http://github.com/therubymug/hitch}
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.1}
