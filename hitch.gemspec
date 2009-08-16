@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.authors = ["Rogelio Samour", "Les Hill"]
   s.date = %q{2009-04-20}
   s.email = %q{ro@hashrocket.com}
-  s.executables = ["hitch", "unhitch", "hitchrc"]
+  s.executables = ["hitch", "unhitch", "hitchrc", "hitchstatus"]
   s.extra_rdoc_files = ["README.rdoc"]
   s.files = ["README.rdoc", "Rakefile", "bin/hitch", "bin/hitchrc", "bin/unhitch", "lib/hitch.rb", "lib/hitch/options.rb"]
   s.homepage = %q{http://github.com/therubymug/hitch}
