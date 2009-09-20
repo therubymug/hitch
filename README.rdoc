@@ -32,8 +32,9 @@ Hitch allows developers to be properly credited when Pair Programming and using 
   - unhitch    (unhitch the current project)
   - unhitch -g (globally unhitch)
   - add the following aliases to your .bashrc:
-    alias hitch='hitch -p'
-    alias unhitch='unhitch -p'
+
+    alias hitch='hitch -p -g'
+    alias unhitch='unhitch -p -g'
     alias git='. ~/.hitch_export_authors && git'
 
 == REQUIREMENTS:
