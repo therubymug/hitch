@@ -87,6 +87,18 @@ module Hitch
     @ui ||= HighLine.new
   end
 
+  def exporting_hitch_authors
+    !!hitch_options.export_hitch_authors
+  end
+
+  def write_hitch_authors
+    File.open(File.expand_path('~/.hitch_export_authors'), "w") do |f|
+      f.puts "# "
+      f.puts "export GIT_AUTHOR_NAME='#{hitch_name}'"
+      f.puts "export GIT_AUTHOR_EMAIL='#{hitch_email}'"
+    end
+  end
+
   def write_gitconfig
     clean_gitconfig
     File.open(hitch_options.current_gitconfig, "a+") do |f|
@@ -129,6 +141,11 @@ module Hitch
     personal_info['group_email'].split('@').last
   end
 
+  def clean_hitch_authors
+    authors_file = File.expand_path '~/.hitch_export_authors'
+    File.open(authors_file, 'w') {|f| f.write('')}
+  end
+
   def clean_gitconfig(opts={:print => false})
     config_file = hitch_options.current_gitconfig
     ui.say " Clearing hitch info in: #{config_file}" if opts[:print]
@@ -136,6 +153,14 @@ module Hitch
     body.gsub!(/# start - lines added by hitch #\n.*?\n# end - lines added by hitch #\n/m, '')
     File.open(config_file + ".tmp", 'w') {|f| f.write(body)}
     File.rename(config_file + ".tmp", config_file)
+  end
+
+  def prep_hitch_authors
+    if pairing?
+      write_hitch_authors
+    else
+      clean_hitch_authors
+    end
   end
 
   def prep_gitconfig
@@ -150,7 +175,11 @@ module Hitch
     if personal_info
       clear_pair_info
       write_hitchrc
-      clean_gitconfig(:print => true)
+      if exporting_hitch_authors
+        clean_hitch_authors
+      else
+        clean_gitconfig(:print => true)
+      end
       print_current_status
     end
   end
@@ -216,7 +245,11 @@ module Hitch
         end
         write_hitchrc
         write_hitch_pairs if save_pairs
-        prep_gitconfig
+        if exporting_hitch_authors
+          prep_hitch_authors
+        else
+          prep_gitconfig
+        end
       else
         ui.say " Silly Rabbit! A pair is comprised of two." unless ARGV.size.zero?
       end

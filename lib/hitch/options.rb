@@ -17,6 +17,10 @@ module Hitch
         opts.separator ""
         opts.separator "General options:"
 
+        opts.on('-p', '--preserve_gitconfig', 'Preserves your ~/.gitconfig and .git/config files.  Uses ~/.hitch_export_authors instead') do
+          options.export_hitch_authors = true
+        end
+
         opts.on("-g", "--global", "Modifies your global ~/.gitconfig") do
           options.current_gitconfig = File.expand_path("~/.gitconfig")
         end

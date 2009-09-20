@@ -28,6 +28,13 @@ Hitch allows developers to be properly credited when Pair Programming and using 
 - Creating a Gravatar for your pair:
   - Once I've hitched with my pair. (e.g. hitch leshill) I have now created a unique email: dev+leshill+therubymug@hashrocket.com
   - Then, I go to gravatar.com. Add an image to that particular email address and I'm done.
+- If you want to allow different committer vs author, then:
+  - unhitch    (unhitch the current project)
+  - unhitch -g (globally unhitch)
+  - add the following aliases to your .bashrc:
+    alias hitch='hitch -p'
+    alias unhitch='unhitch -p'
+    alias git='. ~/.hitch_export_authors && git'
 
 == REQUIREMENTS:
 
