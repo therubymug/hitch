@@ -143,7 +143,10 @@ module Hitch
 
   def clean_hitch_authors
     authors_file = File.expand_path '~/.hitch_export_authors'
-    File.open(authors_file, 'w') {|f| f.write('')}
+    File.open(authors_file, 'w') do |f|
+      f.puts "unset GIT_AUTHOR_NAME"
+      f.puts "unset GIT_AUTHOR_EMAIL"
+    end
   end
 
   def clean_gitconfig(opts={:print => false})
