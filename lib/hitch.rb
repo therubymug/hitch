@@ -235,7 +235,7 @@ module Hitch
             ui.say("I don't know who #{pair} is.")
             if ui.agree("Do you want to add #{pair} to ~/.hitch_pairs?  ", true)
               pairs[pair] = ui.ask("What is #{pair}'s full name?") do |q|
-                q.validate = /\A[(\w|.,)+\s?]+\Z/
+                q.validate = /\A[-(\w|.,)+\s?]+\Z/
               end
               add_pair(pair)
               save_pairs ||= true
