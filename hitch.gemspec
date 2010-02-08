@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{hitch}
-  s.version = "0.5.1"
+  s.version = "0.5.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Rogelio Samour", "Les Hill"]
-  s.date = %q{2009-04-20}
+  s.date = %q{2009-11-19}
   s.email = %q{ro@hashrocket.com}
   s.executables = ["hitch", "unhitch", "hitchrc", "hitchstatus"]
   s.extra_rdoc_files = ["README.rdoc"]
