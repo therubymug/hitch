@@ -1,10 +1,11 @@
 require 'highline'
+require 'yaml'
 require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch options]))
 
 module Hitch
 
   # :stopdoc:
-  VERSION = '0.5.2'
+  VERSION = '0.5.3'
   LIBPATH = ::File.expand_path(::File.dirname(__FILE__)) + ::File::SEPARATOR
   PATH = ::File.dirname(LIBPATH) + ::File::SEPARATOR
   # :startdoc:
