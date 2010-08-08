@@ -1,9 +1,0 @@
-#!/usr/bin/env ruby
-
-require 'rubygems'
-require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch]))
-include Hitch
-
-if personal_info
-  hitch
-end
