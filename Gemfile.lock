@@ -8,17 +8,11 @@ dependencies:
     group: 
     - :default
     version: = 1.3.0
-  mocha: 
-    group: 
-    - :default
-    version: = 0.9.8
   jeweler: 
     group: 
     - :default
     version: = 1.4.0
 specs: 
-- rake: 
-    version: 0.8.7
 - gemcutter: 
     version: 0.6.1
 - git: 
@@ -26,16 +20,14 @@ specs:
 - highline: 
     version: 1.5.0
 - json_pure: 
-    version: 1.4.5
+    version: 1.4.6
 - rubyforge: 
     version: 2.0.4
 - jeweler: 
     version: 1.4.0
-- mocha: 
-    version: 0.9.8
 - rspec: 
     version: 1.3.0
-hash: 40aeb23090509fc8a75271888bbc9805d2856a2a
+hash: 53db923f6697fe404582d87bbe935b41bb1920f8
 sources: 
 - Rubygems: 
     uri: http://gemcutter.org

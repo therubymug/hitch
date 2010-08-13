@@ -22,7 +22,6 @@ begin
     gemspec.extra_rdoc_files = ["README.rdoc"]
     gemspec.executables = ["hitch", "unhitch", "hitchrc"]
     gemspec.add_development_dependency "rspec", ">= 1.3.0"
-    gemspec.add_development_dependency "mocha", ">= 0.9.8"
     gemspec.add_dependency('highline', '>= 1.5.0')
   end
   Jeweler::GemcutterTasks.new
