@@ -1,0 +1,127 @@
+require 'helper'
+
+describe Hitch do
+
+  let(:hitch_pairs) {{'leela' => 'Turanga Leela', 'fry' => 'Philip J. Fry'}}
+
+  let(:hitch_config) do
+    { :group_email => 'dev@hashrocket.com',
+      :current_pair => ['leela', 'fry'] }
+  end
+
+  before do
+    Hitch.stub(:config).and_return(hitch_config)
+    Hitch::Author.stub(:available_pairs).and_return(hitch_pairs)
+  end
+
+  describe '.current_pair=' do
+
+    before { Hitch.stub(:write_file) }
+
+    it 'writes the hitchrc file' do
+      Hitch.should_receive(:write_file)
+      Hitch.current_pair = ['leela', 'fry']
+    end
+
+    context 'when there are no new authors' do
+      it 'sets the current pair with the authors given' do
+        Hitch.current_pair = ['leela', 'fry']
+        Hitch.current_pair.should == ['leela', 'fry']
+      end
+    end
+
+    context 'when there are new authors' do
+
+      let(:new_author) { 'therubymug' }
+
+      it "prompts for the new author's info" do
+        Hitch::UI.should_receive(:prompt_for_pair).with(new_author)
+        Hitch.current_pair = [new_author, 'fry']
+      end
+
+      it 'adds the new author to current pair' do
+        Hitch::UI.stub(:prompt_for_pair).and_return(new_author)
+        Hitch.current_pair = [new_author, 'fry']
+        Hitch.current_pair.should == [new_author, 'fry']
+      end
+
+    end
+
+  end
+
+  describe '.current_pair' do
+    it 'returns an array of Github usernames' do
+      Hitch.stub(:config).and_return(hitch_config)
+      Hitch.current_pair.should == ['leela', 'fry']
+    end
+  end
+
+  describe '.group_email' do
+
+    context 'when absent from Hitch.config' do
+      before { Hitch.stub(:config).and_return({}) }
+      it 'prompts the user for it' do
+        Hitch::UI.should_receive(:prompt_for_group_email)
+        Hitch.group_email
+      end
+    end
+
+    context 'when present in Hitch.config' do
+      it 'returns the value' do
+        Hitch.group_email.should == 'dev@hashrocket.com'
+      end
+    end
+
+  end
+
+  describe '.group_email=' do
+
+    before { Hitch.stub(:write_file) }
+
+    it 'writes the hitchrc file' do
+      Hitch.should_receive(:write_file)
+      Hitch.group_email = 'dev@hashrocket.com'
+    end
+
+    it 'sets the current pair with the authors given' do
+      Hitch.group_email = 'dev@hashrocket.com'
+      Hitch.group_email.should == 'dev@hashrocket.com'
+    end
+
+  end
+
+  describe '.group_prefix' do
+    it 'returns the user portion of the group email' do
+      Hitch.group_prefix.should == 'dev'
+    end
+  end
+
+  describe '.group_domain' do
+    it 'returns the user portion of the group email' do
+      Hitch.group_domain.should == 'hashrocket.com'
+    end
+  end
+
+  describe '.git_author_name' do
+    it 'returns all author names joined by an "and" sorted alphabetically' do
+      Hitch.git_author_name.should == 'Philip J. Fry and Turanga Leela'
+    end
+  end
+
+  describe '.git_author_email' do
+    it 'returns all author github names coalesced into the group email' do
+      Hitch.git_author_email.should == 'dev+fry+leela@hashrocket.com'
+    end
+  end
+
+  describe ".write_file" do
+    it "writes the contents of Hitch.config to the hitchrc file" do
+      YAML.should_receive(:dump)
+      Hitch.write_file
+    end
+  end
+
+  describe '.command' do
+  end
+
+end

@@ -1,4 +1,5 @@
 require 'yaml'
+require 'highline'
 require 'fileutils'
 require 'tempfile'
 
