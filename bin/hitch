@@ -8,6 +8,9 @@ opts = OptionParser.new do |opts|
   opts.banner = "Usage: hitch [options] first_pair_username second_pair_username"
   opts.separator ""
   opts.separator "General options:"
+  opts.on("-s", "--setup", "Print out shell goodies") do
+    options = [:setup]
+  end
   opts.on("-u", "--unhitch", "Clear pair information") do
     options = [:unhitch]
   end

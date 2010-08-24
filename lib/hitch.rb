@@ -79,6 +79,19 @@ module Hitch
     group_email.split('@').last
   end
 
+  def self.setup
+    Hitch::UI.highline.say <<-stp
+
+      # Add the following to your ~/.bashrc or ~/.zshrc
+      hitch() {
+        command hitch "$@"
+        if [[ -s "$HOME/.hitch_export_authors" ]] ; then source "$HOME/.hitch_export_authors" ; fi
+      }
+      alias unhitch='hitch -u'
+
+    stp
+  end
+
   def self.write_file
     File.open(hitchrc, File::CREAT|File::TRUNC|File::RDWR, 0644) do |out|
       YAML.dump(config, out)
