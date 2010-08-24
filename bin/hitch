@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch]))
+
+args = ARGV
+options = []
+opts = OptionParser.new do |opts|
+  opts.banner = "Usage: hitch [options] first_pair_username second_pair_username"
+  opts.separator ""
+  opts.separator "General options:"
+  opts.on("-u", "--unhitch", "Clear pair information") do
+    options = [:unhitch]
+  end
+  opts.separator ""
+  opts.separator "Common options:"
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+  opts.on_tail("-v", "--version", "Show version") do
+    abort "hitch v#{Hitch.version}"
+  end
+end
+if args.any?
+  opts.parse!(args)
+  options = [:export, args] if options.empty?
+else
+  options = [:print_info]
+end
+
+Hitch.send(*options)
