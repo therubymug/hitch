@@ -8,17 +8,13 @@ Gem::Specification.new do |s|
   s.version = "0.6.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Rogelio Samour"]
-  s.date = %q{2010-08-23}
+  s.authors = ["Rogelio J. Samour"]
+  s.date = %q{2010-08-24}
   s.default_executable = %q{hitch}
   s.email = %q{rogelio@therubymug.com}
   s.executables = ["hitch"]
-  s.extra_rdoc_files = [
-    "README.rdoc"
-  ]
   s.files = [
-    "README.rdoc",
-     "Rakefile",
+    "Rakefile",
      "bin/hitch",
      "lib/hitch.rb",
      "lib/hitch/author.rb",

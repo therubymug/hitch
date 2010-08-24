@@ -20,12 +20,13 @@ module Hitch
 
   def self.export(pairs)
     Hitch.current_pair = pairs
-    Hitch.write_export_file
+    write_export_file
+    print_info
   end
 
   def self.unhitch
     Hitch.current_pair = []
-    Hitch.write_export_file
+    write_export_file
   end
 
   def self.author_command
@@ -42,7 +43,7 @@ module Hitch
 
   def self.group_email=(email)
     config[:group_email] = email
-    Hitch.write_file
+    write_file
   end
 
   def self.current_pair
@@ -60,7 +61,7 @@ module Hitch
         end
       end
     end
-    Hitch.write_file
+    write_file
   end
 
   def self.git_author_name

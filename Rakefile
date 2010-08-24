@@ -10,15 +10,14 @@ end
 
 begin
   require 'jeweler'
-  require 'hitch'
   Jeweler::Tasks.new do |gemspec|
     gemspec.name = %q{hitch}
-    gemspec.version = Hitch::VERSION
+    gemspec.version = '0.6.0'
     gemspec.summary = %q{Hitch allows developers to be properly credited when Pair Programming and using Git.}
     gemspec.email = %q{rogelio@therubymug.com}
     gemspec.homepage = %q{http://github.com/therubymug/hitch}
     gemspec.has_rdoc = false
-    gemspec.authors = ["Rogelio Samour"]
+    gemspec.authors = ["Rogelio J. Samour"]
     gemspec.files = %w( README.rdoc Rakefile ) + Dir["{bin,lib}/**/*"].sort
     gemspec.extra_rdoc_files = ["README.rdoc"]
     gemspec.executables = ["hitch"]
