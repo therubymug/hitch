@@ -71,6 +71,10 @@ describe Hitch do
 
     let(:pairs) { ['fry', 'leela'] }
 
+    before do
+      Hitch.stub(:print_info)
+    end
+
     it 'sets the current pair' do
       Hitch.should_receive(:current_pair=).with(pairs)
       Hitch.export(pairs)
@@ -78,6 +82,11 @@ describe Hitch do
 
     it 'writes the export file' do
       Hitch.should_receive(:write_export_file)
+      Hitch.export(pairs)
+    end
+
+    it 'prints out pair info' do
+      Hitch.should_receive(:print_info)
       Hitch.export(pairs)
     end
 
