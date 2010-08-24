@@ -14,6 +14,75 @@ describe Hitch do
     Hitch::Author.stub(:available_pairs).and_return(hitch_pairs)
   end
 
+  describe '.author_command' do
+
+    context 'when pairing' do
+      it 'returns the export shell command for GIT_AUTHOR_NAME and GIT_AUTHOR_EMAIL' do
+        Hitch.current_pair = ['leela', 'fry']
+        Hitch.author_command.should == "export GIT_AUTHOR_NAME='Philip J. Fry and Turanga Leela' GIT_AUTHOR_EMAIL='dev+fry+leela@hashrocket.com'"
+      end
+    end
+
+    context 'when not pairing' do
+      it 'returns the unset shell command for GIT_AUTHOR_NAME and GIT_AUTHOR_EMAIL' do
+        Hitch.current_pair = []
+        Hitch.author_command.should == "unset GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL"
+      end
+    end
+
+  end
+
+  describe '.unhitch' do
+
+    let(:pairs) { ['fry', 'leela'] }
+
+    it 'sets the current pair to an empty array' do
+      Hitch.should_receive(:current_pair=).with([])
+      Hitch.unhitch
+    end
+
+    it 'writes the export file' do
+      Hitch.should_receive(:write_export_file)
+      Hitch.unhitch
+    end
+
+  end
+
+  describe '.print_info' do
+
+    context 'when pairing' do
+      it 'returns the pair name and email being used' do
+        Hitch::UI.highline.should_receive(:say).with("Philip J. Fry and Turanga Leela <dev+fry+leela@hashrocket.com>")
+        Hitch.current_pair = ['leela', 'fry']
+        Hitch.print_info
+      end
+    end
+
+    context 'when not pairing' do
+      it 'returns nothing' do
+        Hitch.current_pair = []
+        Hitch.print_info.should be_nil
+      end
+    end
+
+  end
+
+  describe '.export' do
+
+    let(:pairs) { ['fry', 'leela'] }
+
+    it 'sets the current pair' do
+      Hitch.should_receive(:current_pair=).with(pairs)
+      Hitch.export(pairs)
+    end
+
+    it 'writes the export file' do
+      Hitch.should_receive(:write_export_file)
+      Hitch.export(pairs)
+    end
+
+  end
+
   describe '.current_pair=' do
 
     before { Hitch.stub(:write_file) }
