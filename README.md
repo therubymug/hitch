@@ -19,7 +19,7 @@ Synopsis:
 
 - For leela and fry to pair:
   - hitch leela fry
-- To clear pair info (for the local project):
+- To clear pair info:
   - hitch -u
 - For a complete list of features:
   - hitch -h
@@ -27,24 +27,26 @@ Synopsis:
   - Once I've hitched with my pair. (e.g. hitch leela fry) I have now created a unique email: dev+leela+fry@hashrocket.com
   - Then, I go to gravatar.com. Add an image to that particular email address and I'm done.
 
-Requirements:
-------------
-
-* Git, HighLine
-
 Install:
 -------
 
 * gem install hitch
 * hitch --setup
   - this prints out the necessary shell function and aliases you need to add to your ~/.bashrc or ~/.zshrc
-* Or copy/paste the following:
+* Or copy/paste the following into your ~/.bashrc or ~/.zshrc:
 <pre><code>      hitch() {
         command hitch "$@"
         if [[ -s "$HOME/.hitch_export_authors" ]] ; then source "$HOME/.hitch_export_authors" ; fi
       }
       alias unhitch='hitch -u'
+      # Uncomment to persist pair info between terminal instances
+      # hitch -u
 </code></pre>
+
+Requirements:
+------------
+
+* Git, HighLine
 
 Acknowledgements:
 ----------------
