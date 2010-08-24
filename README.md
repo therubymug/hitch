@@ -1,60 +1,64 @@
-= hitch
+hitch
+=====
     by Rogelio J. Samour
-    http://therubymug.com
+    http://blog.therubymug.com
 
-== DESCRIPTION:
+Description:
+-----------
 
 Hitch allows developers to be properly credited when Pair Programming and using Git.
 
-== FEATURES:
+Features:
+--------
 
 * Persists pair(s) between different terminal instances.
-* Creates a unique email address for the pair. (e.g. dev+leshill+therubymug@hashrocket.com) This provides the ability to create a Gravatar for the pair.
+* Creates a unique email address for the pair. (e.g. dev+leela+fry@hashrocket.com) This provides the ability to create a Gravatar for the pair.
 
-== SYNOPSIS:
+Synopsis:
+--------
 
-- First, create your hitchrc by running:
-  - hitch -m
-- For therubymug and leshill to pair in the current project:
-  - hitch leshill therubymug
-- or globally:
-  - hitch -g leshill therubymug
+- For leela and fry to pair:
+  - hitch leela fry
 - To clear pair info (for the local project):
   - hitch -u
-- To clear pair info in the global file:
-  - hitch -u -g
 - For a complete list of features:
   - hitch -h
 - Creating a Gravatar for your pair:
-  - Once I've hitched with my pair. (e.g. hitch leshill) I have now created a unique email: dev+leshill+therubymug@hashrocket.com
+  - Once I've hitched with my pair. (e.g. hitch leela fry) I have now created a unique email: dev+leela+fry@hashrocket.com
   - Then, I go to gravatar.com. Add an image to that particular email address and I'm done.
-- If you want to allow different committer vs author, then:
-  - unhitch    (unhitch the current project)
-  - unhitch -g (globally unhitch)
-  - add the following aliases to your .bashrc:
-     alias hitch='hitch -p -g'
-     alias unhitch='unhitch -p -g'
-     alias git='. ~/.hitch_export_authors && git'
 
-== REQUIREMENTS:
+Requirements:
+------------
 
 * Git, HighLine
 
-== INSTALL:
+Install:
+-------
 
-* sudo gem install therubymug-hitch
+* gem install hitch
+* hitch --setup
+  - this prints out the necessary shell function and aliases you need to add to your ~/.bashrc or ~/.zshrc
+* Or copy/paste the following:
+<pre><code>      hitch() {
+        command hitch "$@"
+        if [[ -s "$HOME/.hitch_export_authors" ]] ; then source "$HOME/.hitch_export_authors" ; fi
+      }
+      alias unhitch='hitch -u'
+</code></pre>
 
-== ACKNOWLEDGEMENTS:
+Acknowledgements:
+----------------
 
 * Les Hill
 * Tim Pope
-* Bodaniel Jeanes
+* Stephen Caudill
 
-== LICENSE:
+License:
+-------
 
 (The MIT License)
 
-Copyright (c) 2009 Rogelio J. Samour
+Copyright (c) 2010 Rogelio J. Samour
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
