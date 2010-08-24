@@ -40,7 +40,7 @@ Install:
       }
       alias unhitch='hitch -u'
       # Uncomment to persist pair info between terminal instances
-      # hitch -u
+      # hitch
 </code></pre>
 
 Requirements:
@@ -51,9 +51,9 @@ Requirements:
 Acknowledgements:
 ----------------
 
+* Stephen Caudill
 * Les Hill
 * Tim Pope
-* Stephen Caudill
 
 License:
 -------

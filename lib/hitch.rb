@@ -90,7 +90,7 @@ module Hitch
       }
       alias unhitch='hitch -u'
       # Uncomment to persist pair info between terminal instances
-      # hitch -u
+      # hitch
 
     stp
   end
