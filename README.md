@@ -12,7 +12,7 @@ Features:
 --------
 
 * Persists pair(s) between different terminal instances.
-* Creates a unique email address for the pair. (e.g. dev+leela+fry@hashrocket.com) This provides the ability to create a Gravatar for the pair.
+* Creates a unique email address for the pair. (e.g. dev+fry+leela@hashrocket.com) This provides the ability to create a Gravatar for the pair.
 
 Synopsis:
 --------
@@ -24,14 +24,14 @@ Synopsis:
 - For a complete list of features:
   - hitch -h
 - Creating a Gravatar for your pair:
-  - Once I've hitched with my pair. (e.g. hitch leela fry) I have now created a unique email: dev+leela+fry@hashrocket.com
+  - Once I've hitched with my pair. (e.g. hitch leela fry) I have now created a unique email: dev+fry+leela@hashrocket.com
   - Then, I go to gravatar.com. Add an image to that particular email address and I'm done.
 
 Install:
 -------
 
 * gem install hitch
-* hitch --setup
+* hitch --setup >> ~/.bashrc
   - this prints out the necessary shell function and aliases you need to add to your ~/.bashrc or ~/.zshrc
 * Or copy/paste the following into your ~/.bashrc or ~/.zshrc:
 <pre><code>      hitch() {
@@ -42,6 +42,16 @@ Install:
       # Uncomment to persist pair info between terminal instances
       # hitch
 </code></pre>
+
+Development:
+-----------
+
+* It's easier if you use rvm.
+* Fork hitch
+* When you cd into the directory the .rvmrc will activate and create a hitch gemset
+* gem install bundler --pre
+* bundle install
+* rake # run the test suite
 
 Requirements:
 ------------
