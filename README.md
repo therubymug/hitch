@@ -32,17 +32,17 @@ Install:
 
 * gem install hitch
 * rvm users run this:
-<pre><code>      for x in $(rvm list strings); do rvm use $x@global && gem install hitch; done</code></pre>
+<pre><code>for x in $(rvm list strings); do rvm use $x@global && gem install hitch; done</code></pre>
 * hitch --setup >> ~/.bashrc
   - this prints out the necessary shell function and aliases you need to add to your ~/.bashrc or ~/.zshrc
 * Or copy/paste the following into your ~/.bashrc or ~/.zshrc:
-<pre><code>      hitch() {
-        command hitch "$@"
-        if [[ -s "$HOME/.hitch_export_authors" ]] ; then source "$HOME/.hitch_export_authors" ; fi
-      }
-      alias unhitch='hitch -u'
-      # Uncomment to persist pair info between terminal instances
-      # hitch
+<pre><code>hitch() {
+  command hitch "$@"
+  if [[ -s "$HOME/.hitch_export_authors" ]] ; then source "$HOME/.hitch_export_authors" ; fi
+}
+alias unhitch='hitch -u'
+# Uncomment to persist pair info between terminal instances
+# hitch
 </code></pre>
 
 Development:
