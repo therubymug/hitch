@@ -1,2 +1,5 @@
-rvm_gemset_create_on_use_flag=1
-rvm gemset use hitch
+if [[ -n "$rvm_environments_path" && -s "$rvm_environments_path/ree-1.8.7-2010.02@hitch" ]] ; then
+  \. "$rvm_environments_path/ree-1.8.7-2010.02@hitch"
+else
+  rvm --create use  "ree-1.8.7-2010.02@hitch"
+fi
