@@ -12,7 +12,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gemspec|
     gemspec.name = %q{hitch}
-    gemspec.version = '0.6.0'
+    gemspec.version = '0.6.1'
     gemspec.summary = %q{Hitch allows developers to be properly credited when Pair Programming and using Git.}
     gemspec.email = %q{rogelio@therubymug.com}
     gemspec.homepage = %q{http://github.com/therubymug/hitch}
