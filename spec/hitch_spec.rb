@@ -65,6 +65,15 @@ describe Hitch do
       end
     end
 
+    context 'when not in an interactive shell' do
+      it 'returns nothing' do
+        STDOUT.stub(:tty?).and_return(false)
+        Hitch::UI.highline.should_not_receive(:say)
+        Hitch.current_pair = ['leela', 'fry']
+        Hitch.print_info
+      end
+    end
+
   end
 
   describe '.export' do
