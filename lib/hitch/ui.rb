@@ -14,7 +14,7 @@ module Hitch
       highline.say("I don't know who #{new_author} is.")
       if highline.agree("Do you want to add #{new_author} to ~/.hitch_pairs?", true)
         author_name = highline.ask("What is #{new_author}'s full name?") do |q|
-          q.validate = /\A[-(\w|.,)+\s?]+\Z/
+          q.validate = /\A[\w.,-]+(?: [\w.,-]+)*\z/
         end
         Hitch::Author.add(new_author, author_name)
         Hitch::Author.write_file
