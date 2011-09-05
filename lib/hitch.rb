@@ -6,12 +6,6 @@ require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch ui]))
 
 module Hitch
 
-  VERSION = '0.6.1'
-
-  def self.version
-    VERSION
-  end
-
   def self.print_info
     if Hitch.pairing? && STDOUT.tty?
       Hitch::UI.highline.say("#{Hitch.git_author_name} <#{Hitch.git_author_email}>")
@@ -22,6 +16,10 @@ module Hitch
     Hitch.current_pair = pairs
     write_export_file
     print_info
+  end
+
+  def self.expire_command(time)
+    %Q(sleep #{to_seconds(time)} && #{Hitch.bin_path} --unhitch&)
   end
 
   def self.unhitch
@@ -123,8 +121,21 @@ module Hitch
     File.expand_path('~/.hitch_export_authors')
   end
 
+  def self.bin_path
+    %x[which hitch].chomp
+  end
+
   def self.pairing?
     current_pair.any?
+  end
+
+  def self.to_seconds(value)
+    value = value.to_s.gsub(/[^\d]/, '').to_i
+    unless value.zero?
+      value * 60 * 60
+    else
+      raise StandardError
+    end
   end
 
   def self.write_export_file

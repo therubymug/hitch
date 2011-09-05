@@ -14,6 +14,34 @@ describe Hitch do
     Hitch::Author.stub(:available_pairs).and_return(hitch_pairs)
   end
 
+  describe '.expire_command' do
+    before do
+      Hitch.stub(:bin_path).and_return('/usr/local/bin/hitch')
+    end
+
+    context 'with a valid string' do
+      let(:time_string) { '8' }
+      it 'returns the system command to call' do
+        Hitch.expire_command(time_string).should == 'sleep 28800 && /usr/local/bin/hitch --unhitch&'
+      end
+    end
+
+    context 'with a valid integer' do
+      let(:time_string) { 8 }
+      it 'returns the system command to call' do
+        Hitch.expire_command(time_string).should == 'sleep 28800 && /usr/local/bin/hitch --unhitch&'
+      end
+    end
+
+    context 'with an invalid string' do
+      let(:time_string) { 'BAR' }
+      it 'raises an error' do
+        expect {Hitch.expire_command(time_string)}.to raise_error(StandardError)
+      end
+    end
+
+  end
+
   describe '.author_command' do
 
     context 'when pairing' do

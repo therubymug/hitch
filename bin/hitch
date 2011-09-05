@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch]))
+require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch version]))
 
 args = ARGV
 options = []
@@ -10,6 +11,9 @@ opts = OptionParser.new do |opts|
   opts.separator "General options:"
   opts.on("-s", "--setup", "Print out shell goodies") do
     options = [:setup]
+  end
+  opts.on("-e N", "--expire N", Integer, "Expire pair information in N hours.") do |n|
+    options = [:expire, n]
   end
   opts.on("-u", "--unhitch", "Clear pair information") do
     options = [:unhitch]
@@ -21,11 +25,15 @@ opts = OptionParser.new do |opts|
     exit
   end
   opts.on_tail("-v", "--version", "Show version") do
-    abort "hitch v#{Hitch.version}"
+    abort "hitch v#{Hitch::VERSION}"
   end
 end
+
 if args.any?
   opts.parse!(args)
+  if options.delete(:expire)
+    system(Hitch.expire_command(options.pop))
+  end
   options = [:export, args] if options.empty?
 else
   options = [:print_info]
