@@ -13,6 +13,7 @@ Features:
 
 * Persists pair(s) between different terminal instances.
 * Creates a unique email address for the pair. (e.g. dev+fry+leela@hashrocket.com) This provides the ability to create a Gravatar for the pair.
+* Allows you to expire the pair information in N hours. e.g. hitch --expire 8 fry leela
 
 Synopsis:
 --------
@@ -51,9 +52,9 @@ Development:
 * It's easier if you use rvm.
 * Fork hitch
 * When you cd into the directory the .rvmrc will activate and create a hitch gemset
-* gem install bundler --pre
-* bundle install
-* rake # run the test suite
+* Then run the following scripts:
+<pre><code>sh install_supported_rubies.sh
+sh rake_spec_with_all_rubies.sh # this also bundles all necessary gems</code></pre>
 
 Requirements:
 ------------
@@ -72,7 +73,7 @@ License:
 
 (The MIT License)
 
-Copyright (c) 2010 Rogelio J. Samour
+Copyright (c) 2011 Rogelio J. Samour
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
