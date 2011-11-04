@@ -236,7 +236,4 @@ describe Hitch do
     end
   end
 
-  describe '.command' do
-  end
-
 end
