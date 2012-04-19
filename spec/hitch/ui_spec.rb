@@ -38,7 +38,7 @@ describe Hitch::UI do
     end
 
     it 'prompts for pair' do
-      Hitch::UI.highline.should_receive(:agree).with("Do you want to add #{new_author} to ~/.hitch_pairs?", true)
+      Hitch::UI.highline.should_receive(:agree).with("Do you want to add #{new_author} to ~/.hitch_pairs?")
       Hitch::UI.prompt_for_pair(new_author)
     end
 
