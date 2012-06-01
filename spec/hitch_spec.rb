@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Hitch do
 
-  let(:hitch_pairs) {{'leela' => 'Turanga Leela', 'fry' => 'Philip J. Fry'}}
+  let(:hitch_pairs) {{'leela' => 'Turanga Leela', 'fry' => 'Philip J. Fry', 'zoidberg' => 'John A. Zoidberg'}}
 
   let(:hitch_config) do
     { :group_email => 'dev@hashrocket.com',
@@ -55,6 +55,13 @@ describe Hitch do
       it 'returns the unset shell command for GIT_AUTHOR_NAME and GIT_AUTHOR_EMAIL' do
         Hitch.current_pair = []
         Hitch.author_command.should == "unset GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL"
+      end
+    end
+
+    context 'with more than 2 developers' do
+      it "joins 3+ developers together with commas and an 'and'" do
+        Hitch.current_pair = ['leela', 'fry', 'zoidberg']
+        Hitch.author_command.should == "export GIT_AUTHOR_NAME='Philip J. Fry, Turanga Leela, and John A. Zoidberg' GIT_AUTHOR_EMAIL='dev+fry+leela+zoidberg@hashrocket.com'"
       end
     end
 
