@@ -54,7 +54,7 @@ module Hitch
       if Hitch::Author.find(author)
         config[:current_pair] << author
       else
-        if new_author = Hitch::UI.prompt_for_pair(author)
+        if Hitch::UI.prompt_for_pair(author)
           config[:current_pair] << author
         end
       end
