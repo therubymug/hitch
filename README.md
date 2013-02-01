@@ -45,6 +45,12 @@ alias unhitch='hitch -u'
 # hitch
 </code></pre>
 
+Alternatively, copy/symlink the script somewhere (e.g. `~/.bash/hitch.sh`, `/etc/profile.d/hitch.sh`). You can get the path using:
+
+    hitch --setup-path
+
+Scripts in `/etc/profile.d/` should be loaded automatically, but if not, use `source path/to/file`.
+
 Development:
 -----------
 
