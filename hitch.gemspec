@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.date = Time.now.strftime('%F')
   s.email = %q{rogelio@therubymug.com}
   s.executables = [%q{hitch}]
-  s.files = Dir["{lib}/**/*.rb", "bin/*", "Rakefile", "*.md"]
+  s.files = Dir["{lib}/**/*.rb", "lib/hitch.sh", "bin/*", "Rakefile", "*.md"]
   s.homepage = %q{http://github.com/therubymug/hitch}
   s.rdoc_options = [%q{--charset=UTF-8}]
   s.require_paths = [%q{lib}]
