@@ -54,7 +54,7 @@ module Hitch
       if Hitch::Author.find(author)
         config[:current_pair] << author
       else
-        if new_author = Hitch::UI.prompt_for_pair(author)
+        if Hitch::UI.prompt_for_pair(author)
           config[:current_pair] << author
         end
       end
@@ -86,19 +86,16 @@ module Hitch
     group_email.split('@').last
   end
 
+  def self.setup_path
+    File.join(File.dirname(__FILE__), 'hitch.sh')
+  end
+
+  def self.print_setup_path
+    puts setup_path
+  end
+
   def self.setup
-    Hitch::UI.highline.say <<-stp
-
-      # Add the following to your ~/.bashrc or ~/.zshrc
-      hitch() {
-        command hitch "$@"
-        if [[ -s "$HOME/.hitch_export_authors" ]] ; then source "$HOME/.hitch_export_authors" ; fi
-      }
-      alias unhitch='hitch -u'
-      # Uncomment to persist pair info between terminal instances
-      # hitch
-
-    stp
+    Hitch::UI.highline.say(File.read(setup_path))
   end
 
   def self.write_file
