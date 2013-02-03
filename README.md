@@ -44,9 +44,9 @@ Development:
 * It's easier if you use rvm.
 * Fork hitch
 * When you cd into the directory the .rvmrc will activate and create a hitch gemset
-* Then run the following scripts:
-<pre><code>sh install_supported_rubies.sh
-sh rake_spec_with_all_rubies.sh # this also bundles all necessary gems</code></pre>
+* Add tests and code for your feature
+* Create a pull request
+* Double-check TravisCI to make sure all tests pass
 
 Requirements:
 ------------
