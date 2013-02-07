@@ -87,7 +87,7 @@ module Hitch
   end
 
   def self.setup_path
-    File.join(File.dirname(__FILE__), 'hitch.sh')
+    File.join(File.dirname(__FILE__), 'hitch', 'hitch.sh')
   end
 
   def self.print_setup_path

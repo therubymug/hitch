@@ -35,7 +35,7 @@ Install:
 <pre><code>for x in $(rvm list strings); do rvm use $x@global && gem install hitch; done</code></pre>
 * hitch --setup >> ~/.bashrc
   - this prints out the necessary shell function and aliases you need to add to your ~/.bashrc or ~/.zshrc
-* Or copy/paste [the code](lib/hitch.sh) into your ~/.bashrc or ~/.zshrc
+* Or copy/paste [the code](lib/hitch/hitch.sh) into your ~/.bashrc or ~/.zshrc
 * As another option, copy/symlink the script to a separate file (e.g. `~/.bash/hitch.sh` or `/etc/profile.d/hitch.sh`) and source it. You can get the path using `hitch --setup-path`.
 
 Development:
