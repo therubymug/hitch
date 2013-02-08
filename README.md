@@ -2,6 +2,8 @@ hitch
 =====
 by Rogelio J. Samour (http://blog.therubymug.com)
 
+[![Build Status](https://travis-ci.org/therubymug/hitch.png?branch=master)](https://travis-ci.org/therubymug/hitch)
+
 Description:
 -----------
 
