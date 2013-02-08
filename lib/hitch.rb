@@ -6,6 +6,8 @@ require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch ui]))
 
 module Hitch
 
+  VERSION = '1.0.0'
+
   def self.print_info
     if Hitch.pairing? && STDOUT.tty?
       Hitch::UI.highline.say("#{Hitch.git_author_name} <#{Hitch.git_author_email}>")
