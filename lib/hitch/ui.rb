@@ -13,7 +13,7 @@ module Hitch
     def self.prompt_for_pair(new_author)
       highline.say("I don't know who #{new_author} is.")
       if highline.agree("Do you want to add #{new_author} to ~/.hitch_pairs?")
-        author_name = highline.ask("What is #{new_author}'s full name?")
+        author_name = highline.ask("What is #{new_author}'s full name?").to_s
         Hitch::Author.add(new_author, author_name)
         Hitch::Author.write_file
         return new_author
