@@ -67,10 +67,8 @@ module Hitch
   def self.git_author_name
     devs = current_pair.sort.map {|pair| Hitch::Author.find(pair)}
     case devs.length
-    when 1
-      devs[0]
-    when 2
-      "#{devs[0]} and #{devs[1]}"
+    when 1, 2
+      devs.join(" and ")
     else
       "#{devs[0...-1].join(', ')}, and #{devs[-1]}"
     end
