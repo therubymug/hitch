@@ -7,7 +7,7 @@ module Hitch
       Hitch.group_email = highline.ask("What is the group email? e.g. dev@hashrocket.com will become dev+therubymug+leshill@hashrocket.com") do |q|
         q.case = :down
         q.validate = /\A[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+\z/
-      end
+      end.to_s
     end
 
     def self.prompt_for_pair(new_author)
