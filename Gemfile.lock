@@ -24,7 +24,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  highline (= 1.6.2)
+  highline (~> 1.6.2)
   pry
   rake
   rspec (~> 2.6.0)
