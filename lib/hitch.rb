@@ -6,7 +6,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch ui]))
 
 module Hitch
 
-  VERSION = '1.0.1'
+  VERSION = '1.0.2'
 
   def self.print_info
     if Hitch.pairing? && STDOUT.tty?

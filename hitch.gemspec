@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = '1.3.5'
 
   s.name = %q{hitch}
-  s.version = '1.0.1'
+  s.version = '1.0.2'
   s.date = Time.now.strftime('%F')
 
   s.description = %q{Git author attribution helper for pair programmers.}
@@ -49,6 +49,7 @@ Gem::Specification.new do |s|
     lib/hitch/author.rb
     lib/hitch/hitch.sh
     lib/hitch/ui.rb
+    spec/acceptance/hitch_spec.rb
     spec/hitch/author_spec.rb
     spec/hitch/ui_spec.rb
     spec/hitch_spec.rb
