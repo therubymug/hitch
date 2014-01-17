@@ -1,4 +1,6 @@
 require 'highline'
+require 'open3'
+require 'ostruct'
 require 'yaml'
 
 require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch author]))
@@ -28,10 +30,15 @@ module Hitch
     Hitch.current_pair = []
     write_export_file
   end
+  def self.export_command(name,email)
+    "export GIT_AUTHOR_NAME='#{name}' GIT_AUTHOR_EMAIL='#{email}'"
+  end
 
   def self.author_command
     if Hitch.pairing?
-      "export GIT_AUTHOR_NAME='#{Hitch.git_author_name}' GIT_AUTHOR_EMAIL='#{Hitch.git_author_email}'"
+      export_command(Hitch.git_author_name, Hitch.git_author_email)
+    elsif Hitch.global_user_set?
+      export_command(Hitch.global_user.name, Hitch.global_user.email)
     else
       "unset GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL"
     end
@@ -147,4 +154,17 @@ module Hitch
     File.open(hitch_export_authors, 'w'){|f| f.write(author_command) }
   end
 
+  def self.global_user_set?
+    global_user.email && global_user.name
+  end
+
+  def self.global_user
+    @global_user ||= OpenStruct.new(:email => get_global_user_field('user.email'), :name => get_global_user_field('user.name'))
+  end
+
+  def self.get_global_user_field(field_name)
+    Open3.popen3("git config --get #{field_name}") do  |stdin, stdout, stderr, process|
+      stdout.gets.chomp if process.value.success?
+    end
+  end
 end

@@ -52,9 +52,22 @@ describe Hitch do
     end
 
     context 'when not pairing' do
-      it 'returns the unset shell command for GIT_AUTHOR_NAME and GIT_AUTHOR_EMAIL' do
+      before do
         Hitch.current_pair = []
-        Hitch.author_command.should == "unset GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL"
+      end
+
+      context 'when no global user set' do
+        it 'returns the unset shell command for GIT_AUTHOR_NAME and GIT_AUTHOR_EMAIL' do
+          Hitch.stub(:global_user_set? => false)
+          Hitch.author_command.should == "unset GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL"
+        end
+      end
+
+      context 'when global user.name AND user.email are set' do
+        it 'returns the export shell command for GIT_AUTHOR_NAME and GIT_AUTHOR_EMAIL from global config' do
+          Hitch.stub(:get_global_user_field).and_return('fry@planetexpress.com', 'Philip J. Fry')
+          Hitch.author_command.should == "export GIT_AUTHOR_NAME='Philip J. Fry' GIT_AUTHOR_EMAIL='fry@planetexpress.com'"
+        end
       end
     end
 
