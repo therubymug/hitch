@@ -159,7 +159,7 @@ module Hitch
   end
 
   def self.global_user
-    @global_user ||= OpenStruct.new(email: get_global_user_field('user.email'), name: get_global_user_field('user.name'))
+    @global_user ||= OpenStruct.new(:email => get_global_user_field('user.email'), :name => get_global_user_field('user.name'))
   end
 
   def self.get_global_user_field(field_name)
