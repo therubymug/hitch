@@ -58,7 +58,7 @@ describe Hitch do
 
       context 'when no global user set' do
         it 'returns the unset shell command for GIT_AUTHOR_NAME and GIT_AUTHOR_EMAIL' do
-          Hitch.stub(global_user_set?: false)
+          Hitch.stub(:global_user_set? => false)
           Hitch.author_command.should == "unset GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL"
         end
       end
