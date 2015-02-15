@@ -6,7 +6,7 @@ require 'pry'
 require File.join(File.dirname(__FILE__), '..', 'lib', 'hitch')
 
 RSpec.configure do |config|
-  config.color_enabled = true
+  config.color = true
   config.formatter = 'progress'
   config.before(:each) do
     Hitch.stub(:hitchrc).and_return(Tempfile.new('hitchrc').path)
