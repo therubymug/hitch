@@ -8,24 +8,31 @@ opts = OptionParser.new do |opts|
   opts.banner = "Usage: hitch [options] first_pair_username second_pair_username"
   opts.separator ""
   opts.separator "General options:"
+
   opts.on("-s", "--setup", "Print out shell goodies") do
     options = [:setup]
   end
+
   opts.on("--setup-path", "Print out path to shell goodies") do
     options = [:print_setup_path]
   end
+
   opts.on("-e N", "--expire N", Integer, "Expire pair information in N hours.") do |n|
     options = [:expire, n]
   end
+
   opts.on("-u", "--unhitch", "Clear pair information") do
     options = [:unhitch]
   end
+
   opts.separator ""
   opts.separator "Common options:"
+  
   opts.on_tail("-h", "--help", "Show this message") do
     puts opts
     exit
   end
+
   opts.on_tail("-v", "--version", "Show version") do
     abort "hitch v#{Hitch::VERSION}"
   end
