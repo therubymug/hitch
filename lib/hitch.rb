@@ -38,27 +38,18 @@ module Hitch
     end
   end
 
-  def self.group_email
-    config[:group_email] ||= Hitch::UI.prompt_for_group_email
-  end
-
-  def self.group_email=(email)
-    config[:group_email] = email
-    write_file
-  end
-
   def self.current_pair
     config[:current_pair] ||= []
   end
 
   def self.current_pair=(pairs)
     config[:current_pair] = []
-    pairs.each do |author|
-      if Hitch::Author.find(author)
-        config[:current_pair] << author
+    pairs.each do |participant|
+      if Hitch::Participant.find(participant)
+        config[:current_pair] << participant
       else
-        if Hitch::UI.prompt_for_pair(author)
-          config[:current_pair] << author
+        if Hitch::UI.prompt_for_pair(participant)
+          config[:current_pair] << participant
         end
       end
     end
@@ -66,7 +57,7 @@ module Hitch
   end
 
   def self.git_author_name
-    devs = current_pair.sort.map {|pair| Hitch::Author.find(pair)}
+    devs = current_pair.sort.map {|pair| Hitch::Participant.find(pair)}
     case devs.length
     when 1, 2
       devs.join(" and ")

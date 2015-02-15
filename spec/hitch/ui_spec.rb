@@ -62,12 +62,12 @@ describe Hitch::UI do
       end
 
       it "adds the new author" do
-        Hitch::Author.should_receive(:add).with(new_author, new_author_name)
+        Hitch::Participant.should_receive(:add).with(new_author, new_author_name)
         Hitch::UI.prompt_for_pair(new_author)
       end
 
       it "writes the ~/.hitch_pairs file" do
-        Hitch::Author.should_receive(:write_file)
+        Hitch::Participant.should_receive(:write_file)
         Hitch::UI.prompt_for_pair(new_author)
       end
 

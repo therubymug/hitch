@@ -11,7 +11,7 @@ describe Hitch do
 
   before do
     Hitch.stub(:config).and_return(hitch_config)
-    Hitch::Author.stub(:available_pairs).and_return(hitch_pairs)
+    Hitch::Participant.stub(:available_pairs).and_return(hitch_pairs)
   end
 
   describe '.expire_command' do
