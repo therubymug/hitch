@@ -64,22 +64,22 @@ module Hitch
   end
 
   def self.git_author_name
-    devs = current_pair.sort.map {|pair| Hitch::Participant.find(pair)}
+    devs = current_pair.map {|pair| Hitch::Participant.find(pair)}
     devs[0]["name"]
   end
 
   def self.git_author_email
-    devs = current_pair.sort.map {|pair| Hitch::Participant.find(pair)}
+    devs = current_pair.map {|pair| Hitch::Participant.find(pair)}
     devs[0]["email"]
   end
 
   def self.git_committer_name
-    devs = current_pair.sort.map {|pair| Hitch::Participant.find(pair)}
+    devs = current_pair.map {|pair| Hitch::Participant.find(pair)}
     devs[1]["name"]
   end
 
   def self.git_committer_email
-    devs = current_pair.sort.map {|pair| Hitch::Participant.find(pair)}
+    devs = current_pair.map {|pair| Hitch::Participant.find(pair)}
     devs[1]["email"]
   end
 
