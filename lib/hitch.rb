@@ -34,8 +34,8 @@ module Hitch
     Hitch.current_pair = []
 
     if Hitch.mac?
-      %x[ launchctl unsetenv GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL ]
-      %x[ launchctl unsetenv GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL]
+      `launchctl unsetenv GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL`
+      `launchctl unsetenv GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL`
     end
 
     write_export_file
