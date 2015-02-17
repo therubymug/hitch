@@ -17,8 +17,10 @@ module Hitch
   def self.export(pairs)
     Hitch.current_pair = pairs
 
-    `launchctl setenv GIT_AUTHOR_NAME '#{Hitch.git_author_name}' GIT_AUTHOR_EMAIL '#{Hitch.git_author_email}'`
-    `launchctl setenv GIT_COMMITTER_NAME '#{Hitch.git_committer_name}' GIT_COMMITTER_EMAIL '#{Hitch.git_committer_email}'`
+    if Hitch.mac?
+      `launchctl setenv GIT_AUTHOR_NAME '#{Hitch.git_author_name}' GIT_AUTHOR_EMAIL '#{Hitch.git_author_email}'`
+      `launchctl setenv GIT_COMMITTER_NAME '#{Hitch.git_committer_name}' GIT_COMMITTER_EMAIL '#{Hitch.git_committer_email}'`
+    end
 
     write_export_file
     print_info
@@ -31,8 +33,10 @@ module Hitch
   def self.unhitch
     Hitch.current_pair = []
 
-    %x[ launchctl unsetenv GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL ]
-    %x[ launchctl unsetenv GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL]
+    if Hitch.mac?
+      %x[ launchctl unsetenv GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL ]
+      %x[ launchctl unsetenv GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL]
+    end
 
     write_export_file
   end
@@ -102,6 +106,10 @@ module Hitch
   end
 
   private
+
+  def self.mac?
+    (/darwin14/ =~ RUBY_PLATFORM)
+  end
 
   def self.config
     @config ||= get_config
