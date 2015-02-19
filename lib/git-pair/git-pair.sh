@@ -2,11 +2,11 @@
 #
 # Alternatively, copy/symlink this file and source in your shell.  See `hitch --setup-path`.
 
-hitch() {
-  command hitch "$@"
-  if [[ -s "$HOME/.hitch_export_authors" ]] ; then source "$HOME/.hitch_export_authors" ; fi
+pair() {
+  command pair "$@"
+  if [[ -s "$HOME/.pair_export_authors" ]] ; then source "$HOME/.pair_export_authors" ; fi
 }
-alias unhitch='hitch -u'
+alias unpair='pair -u'
 
 # Uncomment to persist pair info between terminal instances
-# hitch
+# pair

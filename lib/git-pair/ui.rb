@@ -1,6 +1,6 @@
 HighLine.track_eof = false
 
-module Hitch
+module GitPair
   class UI
 
     def self.prompt_for_pair(new_participant)

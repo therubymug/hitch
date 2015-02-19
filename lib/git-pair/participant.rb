@@ -1,4 +1,4 @@
-module Hitch
+module GitPair
   class Participant
 
     def self.add(github, email, name)

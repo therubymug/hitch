@@ -4,22 +4,22 @@ require 'yaml'
 require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch ui]))
 require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch participant]))
 
-module Hitch
+module GitPair
 
   VERSION = '1.0.2'
 
   def self.print_info
-    if Hitch.pairing? && STDOUT.tty?
-      Hitch::UI.highline.say("Author: #{Hitch.git_author_name} <#{Hitch.git_author_email}> ,Comitter: #{Hitch.git_committer_name} <#{Hitch.git_committer_email}>")
+    if GitPair.pairing? && STDOUT.tty?
+      GitPair::UI.highline.say("Author: #{GitPair.git_author_name} <#{GitPair.git_author_email}> ,Comitter: #{GitPair.git_committer_name} <#{GitPair.git_committer_email}>")
     end
   end
 
   def self.export(pairs)
-    Hitch.current_pair = pairs
+    GitPair.current_pair = pairs
 
-    if Hitch.mac?
-      `launchctl setenv GIT_AUTHOR_NAME '#{Hitch.git_author_name}' GIT_AUTHOR_EMAIL '#{Hitch.git_author_email}'`
-      `launchctl setenv GIT_COMMITTER_NAME '#{Hitch.git_committer_name}' GIT_COMMITTER_EMAIL '#{Hitch.git_committer_email}'`
+    if GitPair.mac?
+      `launchctl setenv GIT_AUTHOR_NAME '#{GitPair.git_author_name}' GIT_AUTHOR_EMAIL '#{GitPair.git_author_email}'`
+      `launchctl setenv GIT_COMMITTER_NAME '#{GitPair.git_committer_name}' GIT_COMMITTER_EMAIL '#{GitPair.git_committer_email}'`
     end
 
     write_export_file
@@ -27,13 +27,13 @@ module Hitch
   end
 
   def self.expire_command(time)
-    %Q(sleep #{to_seconds(time)} && #{Hitch.bin_path} --unhitch&)
+    %Q(sleep #{to_seconds(time)} && #{GitPair.bin_path} --unhitch&)
   end
 
   def self.unhitch
-    Hitch.current_pair = []
+    GitPair.current_pair = []
 
-    if Hitch.mac?
+    if GitPair.mac?
       `launchctl unsetenv GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL`
       `launchctl unsetenv GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL`
     end
@@ -42,8 +42,8 @@ module Hitch
   end
 
   def self.author_command
-    if Hitch.pairing?
-      "export GIT_AUTHOR_NAME='#{Hitch.git_author_name}' GIT_AUTHOR_EMAIL='#{Hitch.git_author_email}' GIT_COMMITTER_NAME='#{Hitch.git_committer_name}' GIT_COMMITTER_EMAIL='#{Hitch.git_committer_email}'"
+    if GitPair.pairing?
+      "export GIT_AUTHOR_NAME='#{GitPair.git_author_name}' GIT_AUTHOR_EMAIL='#{GitPair.git_author_email}' GIT_COMMITTER_NAME='#{GitPair.git_committer_name}' GIT_COMMITTER_EMAIL='#{GitPair.git_committer_email}'"
     else
       "unset GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL"
     end
@@ -56,10 +56,10 @@ module Hitch
   def self.current_pair=(pairs)
     config[:current_pair] = []
     pairs.each do |participant|
-      if Hitch::Participant.find(participant)
+      if GitPair::Participant.find(participant)
         config[:current_pair] << participant
       else
-        if Hitch::UI.prompt_for_pair(participant)
+        if GitPair::UI.prompt_for_pair(participant)
           config[:current_pair] << participant
         end
       end
@@ -68,27 +68,27 @@ module Hitch
   end
 
   def self.git_author_name
-    devs = current_pair.map {|pair| Hitch::Participant.find(pair)}
+    devs = current_pair.map {|pair| GitPair::Participant.find(pair)}
     devs[0]["name"]
   end
 
   def self.git_author_email
-    devs = current_pair.map {|pair| Hitch::Participant.find(pair)}
+    devs = current_pair.map {|pair| GitPair::Participant.find(pair)}
     devs[0]["email"]
   end
 
   def self.git_committer_name
-    devs = current_pair.map {|pair| Hitch::Participant.find(pair)}
+    devs = current_pair.map {|pair| GitPair::Participant.find(pair)}
     devs[1]["name"]
   end
 
   def self.git_committer_email
-    devs = current_pair.map {|pair| Hitch::Participant.find(pair)}
+    devs = current_pair.map {|pair| GitPair::Participant.find(pair)}
     devs[1]["email"]
   end
 
   def self.setup_path
-    File.join(File.dirname(__FILE__), 'hitch', 'hitch.sh')
+    File.join(File.dirname(__FILE__), 'git-pair', 'git-pair.sh')
   end
 
   def self.print_setup_path
@@ -96,7 +96,7 @@ module Hitch
   end
 
   def self.setup
-    Hitch::UI.highline.say(File.read(setup_path))
+    GitPair::UI.highline.say(File.read(setup_path))
   end
 
   def self.write_file
@@ -124,15 +124,15 @@ module Hitch
   end
 
   def self.hitchrc
-    File.expand_path('~/.hitchrc')
+    File.expand_path('~/.git-pairrc')
   end
 
   def self.hitch_export_authors
-    File.expand_path('~/.hitch_export_authors')
+    File.expand_path('~/.git-pair_export_authors')
   end
 
   def self.bin_path
-    %x[which hitch].chomp
+    %x[which git-pair].chomp
   end
 
   def self.pairing?
