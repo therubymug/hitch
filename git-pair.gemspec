@@ -4,20 +4,20 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.rubygems_version = '1.3.5'
 
-  s.name = %q{hitch}
+  s.name = %q{git-pair}
   s.version = '1.0.2'
   s.date = Time.now.strftime('%F')
 
   s.description = %q{Git author attribution helper for pair programmers.}
-  s.summary = %q{Hitch allows developers to be properly credited when Pair Programming and using Git.}
+  s.summary = %q{Git pair allows developers to be properly credited when Pair Programming and using Git.}
   s.authors = [%q{Rogelio J. Samour}]
   s.email         = ["rogelio@therubymug.com"]
-  s.homepage = %q{http://github.com/therubymug/hitch}
+  s.homepage = %q{http://github.com/A-Helberg/git-pair}
   s.require_paths = %w[lib]
   s.extra_rdoc_files = %w[README.md LICENSE.md]
   s.rdoc_options = [%q{--charset=UTF-8}]
 
-  s.executables = [%q{hitch}]
+  s.executables = [%q{git-pair}]
   if s.respond_to? :specification_version then
     s.specification_version = 3
 
@@ -43,16 +43,16 @@ Gem::Specification.new do |s|
     LICENSE.md
     README.md
     Rakefile
-    bin/hitch
-    hitch.gemspec
-    lib/hitch.rb
-    lib/hitch/author.rb
-    lib/hitch/hitch.sh
-    lib/hitch/ui.rb
-    spec/acceptance/hitch_spec.rb
-    spec/hitch/author_spec.rb
-    spec/hitch/ui_spec.rb
-    spec/hitch_spec.rb
+    bin/git-pair
+    git-pair.gemspec
+    lib/git-pair.rb
+    lib/git-pair/author.rb
+    lib/git-pair/git-pair.sh
+    lib/git-pair/ui.rb
+    spec/acceptance/git-pair_spec.rb
+    spec/git-pair/author_spec.rb
+    spec/git-pair/ui_spec.rb
+    spec/git-pair_spec.rb
     spec/spec_helper.rb
   ]
   # = MANIFEST =

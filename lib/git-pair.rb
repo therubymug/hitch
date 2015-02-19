@@ -1,8 +1,8 @@
 require 'highline'
 require 'yaml'
 
-require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch ui]))
-require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch participant]))
+require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib git-pair ui]))
+require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib git-pair participant]))
 
 module GitPair
 
@@ -10,7 +10,7 @@ module GitPair
 
   def self.print_info
     if GitPair.pairing? && STDOUT.tty?
-      GitPair::UI.highline.say("Author: #{GitPair.git_author_name} <#{GitPair.git_author_email}> ,Comitter: #{GitPair.git_committer_name} <#{GitPair.git_committer_email}>")
+      GitPair::UI.highline.say("Author: #{GitPair.git_author_name} <#{GitPair.git_author_email}>, Comitter: #{GitPair.git_committer_name} <#{GitPair.git_committer_email}>")
     end
   end
 
@@ -27,10 +27,10 @@ module GitPair
   end
 
   def self.expire_command(time)
-    %Q(sleep #{to_seconds(time)} && #{GitPair.bin_path} --unhitch&)
+    %Q(sleep #{to_seconds(time)} && #{GitPair.bin_path} --unpair&)
   end
 
-  def self.unhitch
+  def self.unpair
     GitPair.current_pair = []
 
     if GitPair.mac?
@@ -100,7 +100,7 @@ module GitPair
   end
 
   def self.write_file
-    File.open(hitchrc, File::CREAT|File::TRUNC|File::RDWR, 0644) do |out|
+    File.open(gitpairrc, File::CREAT|File::TRUNC|File::RDWR, 0644) do |out|
       YAML.dump(config, out)
     end
   end
@@ -116,18 +116,18 @@ module GitPair
   end
 
   def self.get_config
-    if File.exists?(hitchrc)
-      yamlized = YAML::load_file(hitchrc)
+    if File.exists?(gitpairrc)
+      yamlized = YAML::load_file(gitpairrc)
       return yamlized if yamlized.kind_of?(Hash)
     end
     return {}
   end
 
-  def self.hitchrc
+  def self.gitpairrc
     File.expand_path('~/.git-pairrc')
   end
 
-  def self.hitch_export_authors
+  def self.gitpair_export_authors
     File.expand_path('~/.git-pair_export_authors')
   end
 
@@ -149,7 +149,7 @@ module GitPair
   end
 
   def self.write_export_file
-    File.open(hitch_export_authors, 'w'){|f| f.write(author_command) }
+    File.open(gitpair_export_authors, 'w'){|f| f.write(author_command) }
   end
 
 end

@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 
-require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch]))
+require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib git-pair]))
 
 args = ARGV
 options = []
 opts = OptionParser.new do |opts|
-  opts.banner = "Usage: hitch [options] first_pair_username second_pair_username"
+  opts.banner = "Usage: git pair [options] first_pair_username second_pair_username"
   opts.separator ""
   opts.separator "General options:"
 
@@ -21,8 +21,8 @@ opts = OptionParser.new do |opts|
     options = [:expire, n]
   end
 
-  opts.on("-u", "--unhitch", "Clear pair information") do
-    options = [:unhitch]
+  opts.on("-u", "--unpair", "Clear pair information") do
+    options = [:unpair]
   end
 
   opts.separator ""
@@ -34,18 +34,18 @@ opts = OptionParser.new do |opts|
   end
 
   opts.on_tail("-v", "--version", "Show version") do
-    abort "hitch v#{Hitch::VERSION}"
+    abort "git pair v#{GitPair::VERSION}"
   end
 end
 
 if args.any?
   opts.parse!(args)
   if options.delete(:expire)
-    system(Hitch.expire_command(options.pop))
+    system(GitPair.expire_command(options.pop))
   end
   options = [:export, args] if options.empty?
 else
   options = [:print_info]
 end
 
-Hitch.send(*options)
+GitPair.send(*options)

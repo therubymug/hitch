@@ -5,11 +5,11 @@ module GitPair
 
     def self.prompt_for_pair(new_participant)
       highline.say("I don't know who #{new_participant} is.")
-      if highline.agree("Do you want to add #{new_participant} to ~/.hitch_pairs? (yn)")
+      if highline.agree("Do you want to add #{new_participant} to ~/.git-pair_pairs? (yn)")
         participant_name = highline.ask("What is #{new_participant}'s full name?").to_s
         participant_email = highline.ask("What is #{new_participant}'s email?").to_s
-        Hitch::Participant.add(new_participant, participant_email, participant_name)
-        Hitch::Participant.write_file
+        GitPair::Participant.add(new_participant, participant_email, participant_name)
+        GitPair::Participant.write_file
         return new_participant
       else
         highline.say("Ignoring #{new_participant}.")
