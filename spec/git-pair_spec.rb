@@ -48,4 +48,29 @@ describe GitPair do
     end
 
   end
+
+  describe '.export' do
+
+    let(:pairs) { ['fry', 'leela'] }
+
+    before do
+      allow(GitPair).to receive(:print_info)
+    end
+
+    it 'sets the current pair' do
+      expect(GitPair).to receive(:current_pair=) {pairs}
+      GitPair.export(pairs)
+    end
+
+    it 'writes the export file' do
+      expect(GitPair).to receive(:write_export_file)
+      GitPair.export(pairs)
+    end
+
+    it 'prints out pair info' do
+      expect(GitPair).to receive(:print_info)
+      GitPair.export(pairs)
+    end
+
+  end
 end
