@@ -68,23 +68,23 @@ module GitPair
   end
 
   def self.git_author_name
-    devs = current_pair.map {|pair| GitPair::Participant.find(pair)}
-    devs[0]["name"]
+    dev = GitPair::Participant.find(current_pair[0])
+    dev["name"]
   end
 
   def self.git_author_email
-    devs = current_pair.map {|pair| GitPair::Participant.find(pair)}
-    devs[0]["email"]
+    dev = GitPair::Participant.find(current_pair[0])
+    dev["email"]
   end
 
   def self.git_committer_name
-    devs = current_pair.map {|pair| GitPair::Participant.find(pair)}
-    devs[1]["name"]
+    dev = GitPair::Participant.find(current_pair[1])
+    dev["name"]
   end
 
   def self.git_committer_email
-    devs = current_pair.map {|pair| GitPair::Participant.find(pair)}
-    devs[1]["email"]
+    dev = GitPair::Participant.find(current_pair[1])
+    dev["email"]
   end
 
   def self.setup_path
