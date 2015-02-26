@@ -21,15 +21,15 @@ Synopsis:
 
 - For leela and fry to pair:
  ```shell
- git pair leela fry
+ pair leela fry
  ```
 - To clear pair info:
 ```shell
-git pair unpair
+pair -u
 ```
 - For a complete list of features:
 ```shell
-git pair -h
+pair -h
 ```
 
 Install:
@@ -40,13 +40,14 @@ gem install git-pair
 ```
 
 ``` shell
-git pair --setup 
+pair --setup 
 ```
 
 * this prints out the necessary shell function and aliases you need to add to your ~/.bashrc or ~/.zshrc
-  - eg. git pair --setup >> ~/.zshrc
+  - eg. `pair --setup >> ~/.zshrc`
 * Or copy/paste [the code](lib/git-pair/git-pair.sh) into your ~/.bashrc or ~/.zshrc
-* As another option, copy/symlink the script to a separate file (e.g. `~/.bash/git-pair.sh` or `/etc/profile.d/git-pair.sh`) and source it. You can get the path using `git pair --setup-path`.
+* As another option, copy/symlink the script to a separate file (e.g. `~/.bash/git-pair.sh` or `/etc/profile.d/git-pair.sh`) and source it. You can get the path using `pair --setup-path`.
+* Restart your terminal.
 
 Development:
 -----------

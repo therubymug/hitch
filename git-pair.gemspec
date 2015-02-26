@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = '1.3.5'
 
   s.name = %q{git-pair}
-  s.version = '0.0.0'
+  s.version = '1.0.0'
   s.date = Time.now.strftime('%F')
   s.license = 'MIT'
 
@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = %w[README.md LICENSE.md]
   s.rdoc_options = [%q{--charset=UTF-8}]
 
-  s.executables = [%q{git-pair}]
+  s.executables = [%q{pair}]
   s.add_development_dependency(%q<rspec>, ["~> 3.2"])
   s.add_runtime_dependency(%q<highline>, ["~> 1.6"])
 
@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
     LICENSE.md
     README.md
     Rakefile
-    bin/git-pair
+    bin/pair
     git-pair.gemspec
     lib/git-pair.rb
     lib/git-pair/participant.rb
