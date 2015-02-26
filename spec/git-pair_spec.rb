@@ -19,6 +19,7 @@ describe GitPair do
   before do
     allow(GitPair::Participant).to receive(:config) { gitpair_config }
     allow(GitPair::Participant).to receive(:available_pairs) { pairs_data }
+    allow(GitPair).to receive(:write_file)
   end
 
   describe '.print_info' do
@@ -47,6 +48,17 @@ describe GitPair do
       end
     end
 
+  end
+
+  describe '.switch' do
+
+    it "switches the author and commiter around" do
+      allow(GitPair::UI.highline).to receive(:say)
+      GitPair.current_pair= ['leela', 'fry']
+      expect(GitPair.current_pair).to eql(['leela', 'fry'])
+      GitPair.switch
+      expect(GitPair.current_pair).to eql(["fry", "leela"])
+    end
   end
 
   describe '.export' do
@@ -216,8 +228,6 @@ describe GitPair do
       expect(GitPair.git_committer_email).to eql('fry@futurama.test')
     end
   end
-
-
 
 
 end

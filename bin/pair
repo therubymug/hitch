@@ -25,6 +25,10 @@ opts = OptionParser.new do |opts|
     options = [:unpair]
   end
 
+  opts.on("--switch", "Switch author and committer") do
+    options = [:switch]
+  end
+
   opts.separator ""
   opts.separator "Common options:"
   
@@ -43,6 +47,7 @@ if args.any?
   if options.delete(:expire)
     system(GitPair.expire_command(options.pop))
   end
+
   options = [:export, args] if options.empty?
 else
   options = [:print_info]

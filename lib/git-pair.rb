@@ -6,7 +6,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib git-pair pa
 
 module GitPair
 
-  VERSION = '1.0.2'
+  VERSION = '1.0.0'
 
   def self.print_info
     if GitPair.pairing? && STDOUT.tty?
@@ -51,6 +51,12 @@ module GitPair
 
   def self.current_pair
     config[:current_pair] ||= []
+  end
+
+  def self.switch
+    if not current_pair.empty?
+      GitPair.export current_pair.reverse
+    end
   end
 
   def self.current_pair=(pairs)
