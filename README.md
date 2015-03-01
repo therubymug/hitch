@@ -16,20 +16,39 @@ Features:
 * Can be used in OSX GUI applications ( after restarting the application )
 * Allows you to expire the pair information in N hours. e.g. git pair --expire 8 fry leela
 
-Synopsis:
---------
-
-- For leela and fry to pair:
- ```shell
- pair leela fry
- ```
-- To clear pair info:
+Installation & Usage:
+----------
+Install the gem and add the setup to the end of your zshrc or bashrc file
 ```shell
-pair -u
+$ gem install git-pair 
 ```
-- For a complete list of features:
+
 ```shell
-pair -h
+$ pair --setup >> ~/.zshrc
+```
+
+Restart your terminal.
+
+To pair with someone replace the following names with your github names
+```shell
+$ pair A-Helberg aleciafb
+```
+
+Now just commit as you usually would. The first person will be used as the author and the second person as the committer.
+
+ To switch the pairs around run:
+``` shell
+$ pair --switch
+```
+
+Don't forget to unpair when you are done:
+``` shell
+$ pair -u
+```
+
+For some help and a complete list of features:
+```shell
+$ pair -h
 ```
 
 Install:
