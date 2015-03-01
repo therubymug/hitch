@@ -34,7 +34,7 @@ To pair with someone replace the following names with your github names
 $ pair A-Helberg aleciafb
 ```
 
-Now just commit as you usually would. The first person will be used as the author and the second person as the committer.
+Now just commit as you usually would. If you use a gui application on OSX, remember to restart it when you setupa new pair or switch pairs for it to take effect. The first person will be used as the author and the second person as the committer.
 
  To switch the pairs around run:
 ``` shell
