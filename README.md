@@ -35,6 +35,8 @@ Install:
 * gem install hitch
 * rvm users run this:
 <pre><code>for x in $(rvm list strings); do rvm use $x@global && gem install hitch; done</code></pre>
+* rbenv users run this:
+<pre><code>for x in $(rbenv versions | cut -c 3- | awk '{print $1}'); do rbenv shell $x && gem install hitch; done</code></pre>
 * hitch --setup >> ~/.bashrc
   - this prints out the necessary shell function and aliases you need to add to your ~/.bashrc or ~/.zshrc
 * Or copy/paste [the code](lib/hitch/hitch.sh) into your ~/.bashrc or ~/.zshrc
