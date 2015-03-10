@@ -5,12 +5,12 @@ Gem::Specification.new do |s|
   s.rubygems_version = '1.3.5'
 
   s.name = %q{hitch}
-  s.version = '1.0.3'
+  s.version = '1.1.0'
   s.date = Time.now.strftime('%F')
 
   s.description = %q{Git author attribution helper for pair programmers.}
   s.summary = %q{Hitch allows developers to be properly credited when Pair Programming and using Git.}
-  s.authors = [%q{Rogelio J. Samour}]
+  s.authors = ["Rogelio J. Samour", "Pat O'Brien", "Tobi Lehman"]
   s.email         = ["rogelio@therubymug.com"]
   s.homepage = %q{http://github.com/therubymug/hitch}
   s.require_paths = %w[lib]

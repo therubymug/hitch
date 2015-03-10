@@ -14,6 +14,7 @@ Features:
 
 * Persists pair(s) between different terminal instances.
 * Creates a unique email address for the pair. (e.g. dev+fry+leela@hashrocket.com) This provides the ability to create a Gravatar for the pair.
+* Fetches the gravtar images of each user and merges them for quick visual recognition.
 * Allows you to expire the pair information in N hours. e.g. hitch --expire 8 fry leela
 
 Synopsis:
@@ -27,7 +28,7 @@ Synopsis:
   - hitch -h
 - Creating a Gravatar for your pair:
   - Once I've hitched with my pair. (e.g. hitch leela fry) I have now created a unique email: dev+fry+leela@hashrocket.com
-  - Then, I go to gravatar.com. Add an image to that particular email address and I'm done.
+  - Then, I go to gravatar.com. Add the merged image to that particular email address and I'm done.
 
 Install:
 -------

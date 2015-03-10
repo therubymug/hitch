@@ -53,5 +53,4 @@ describe Hitch::Author do
     end
 
   end
-
 end
