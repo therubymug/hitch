@@ -1,6 +1,6 @@
 # Add the following to your ~/.bashrc or ~/.zshrc
 #
-# Alternatively, copy/symlink this file and source in your shell.  See `git pair --setup-path`.
+# Alternatively, copy/symlink this file and source in your shell.  See `pair --setup-path`.
 
 pair() {
   command pair "$@"
