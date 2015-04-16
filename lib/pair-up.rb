@@ -106,7 +106,7 @@ module PairUp
   end
 
   def self.write_file
-    File.open(PairUprc, File::CREAT|File::TRUNC|File::RDWR, 0644) do |out|
+    File.open(self.PairUprc, File::CREAT|File::TRUNC|File::RDWR, 0644) do |out|
       YAML.dump(config, out)
     end
   end
@@ -123,7 +123,7 @@ module PairUp
 
   def self.get_config
     if File.exists?(self.PairUprc)
-      yamlized = YAML::load_file(PairUprc)
+      yamlized = YAML::load_file(self.PairUprc)
       return yamlized if yamlized.kind_of?(Hash)
     end
     return {}
