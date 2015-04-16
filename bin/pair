@@ -1,11 +1,11 @@
 #!/usr/bin/env ruby
 
-require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib git-pair]))
+require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib pair-up]))
 
 args = ARGV
 options = []
 opts = OptionParser.new do |opts|
-  opts.banner = "Usage: git pair [options] first_pair_username second_pair_username"
+  opts.banner = "Usage: pair [options] first_pair_username second_pair_username"
   opts.separator ""
   opts.separator "General options:"
 
@@ -38,14 +38,14 @@ opts = OptionParser.new do |opts|
   end
 
   opts.on_tail("-v", "--version", "Show version") do
-    abort "git pair v#{GitPair::VERSION}"
+    abort "pair-up v#{PairUp::VERSION}"
   end
 end
 
 if args.any?
   opts.parse!(args)
   if options.delete(:expire)
-    system(GitPair.expire_command(options.pop))
+    system(PairUp.expire_command(options.pop))
   end
 
   options = [:export, args] if options.empty?
@@ -53,4 +53,4 @@ else
   options = [:print_info]
 end
 
-GitPair.send(*options)
+PairUp.send(*options)
