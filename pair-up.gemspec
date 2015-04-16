@@ -4,16 +4,16 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.rubygems_version = '1.3.5'
 
-  s.name = %q{git-pair}
+  s.name = %q{pair-up}
   s.version = '1.0.0'
   s.date = Time.now.strftime('%F')
   s.license = 'MIT'
 
   s.description = %q{Git author attribution helper for pair programmers.}
-  s.summary = %q{Git pair allows developers to be properly credited when Pair Programming and using Git.}
+  s.summary = %q{pair-up allows developers to be properly credited when Pair Programming and using Git.}
   s.authors = [%q{Andre Helberg}]
   s.email         = ["helberg.andre@gmail.com"]
-  s.homepage = %q{http://github.com/A-Helberg/git-pair}
+  s.homepage = %q{http://github.com/A-Helberg/pair-up}
   s.require_paths = %w[lib]
   s.extra_rdoc_files = %w[README.md LICENSE.md]
   s.rdoc_options = [%q{--charset=UTF-8}]
@@ -33,14 +33,14 @@ Gem::Specification.new do |s|
     README.md
     Rakefile
     bin/pair
-    git-pair.gemspec
-    lib/git-pair.rb
-    lib/git-pair/participant.rb
-    lib/git-pair/git-pair.sh
-    lib/git-pair/ui.rb
-    spec/git-pair/participant_spec.rb
-    spec/git-pair/ui_spec.rb
-    spec/git-pair_spec.rb
+    pair-up.gemspec
+    lib/pair-up.rb
+    lib/pair-up/participant.rb
+    lib/pair-up/pair-up.sh
+    lib/pair-up/ui.rb
+    spec/pair-up/participant_spec.rb
+    spec/pair-up/ui_spec.rb
+    spec/pair-up_spec.rb
     spec/spec_helper.rb
   ]
   # = MANIFEST =

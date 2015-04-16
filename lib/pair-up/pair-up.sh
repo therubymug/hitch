@@ -4,7 +4,7 @@
 
 pair() {
   command pair "$@"
-  if [[ -s "$HOME/.git-pair_export_authors" ]] ; then source "$HOME/.git-pair_export_authors" ; fi
+  if [[ -s "$HOME/.pair-up_export_authors" ]] ; then source "$HOME/.pair-up_export_authors" ; fi
 }
 
 # Uncomment to persist pair info between terminal instances

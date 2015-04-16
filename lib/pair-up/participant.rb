@@ -1,4 +1,4 @@
-module GitPair
+module PairUp
   class Participant
 
     def self.add(github, email, name)
@@ -22,7 +22,7 @@ module GitPair
     private
 
     def self.pairs_file
-      File.expand_path("~/.git-pair_pairs")
+      File.expand_path("~/.pair-up_pairs")
     end
 
     def self.available_pairs
