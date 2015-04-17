@@ -8,6 +8,8 @@ Description:
 
 Pair Up allows two developers to be jointly credited when Pair Programming and using Git.
 
+![Example of Pair Up in action](https://s3-us-west-2.amazonaws.com/ah-public/pair-up-github.png)
+
 Features:
 --------
 
