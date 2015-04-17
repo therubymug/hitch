@@ -1,13 +1,14 @@
-Pair Up
+Pair Up [![Build Status](https://travis-ci.org/A-Helberg/pair-up.svg)](https://travis-ci.org/A-Helberg/pair-up)
 =====
-by Andre Helberg (@A-Helberg)
 
-[![Build Status](https://travis-ci.org/A-Helberg/pair-up.svg)](https://travis-ci.org/A-Helberg/pair-up)
+by Andre Helberg ([@A_Helberg](http://twitter.com/a_helberg))
 
 Description:
 -----------
 
 Pair Up allows two developers to be jointly credited when Pair Programming and using Git.
+
+![Example of Pair Up in action](https://s3-us-west-2.amazonaws.com/ah-public/pair-up-github.png)
 
 Features:
 --------
@@ -15,6 +16,11 @@ Features:
 * Persists pair between different terminal instances.
 * Can be used in OSX GUI applications ( after restarting the application )
 * Allows you to expire the pair information in N hours. e.g. pair --expire 8 fry leela
+
+Why use Pair Up instead of other tools?:
+---------------------------------------
+
+Pair Up is based off the solid work of [Hitch](https://github.com/therubymug/hitch). Its main differentiating factor is that it picks one developer to be the author, and another to be the committer. Similar solutions create a dummy email account of all devs, which could potentially be more than two. Pair Up only allows two devs. One will be the author (usually the person that is driving) and the other is the committer. No extra email accounts or gravatar setups are required.
 
 Installation & Usage:
 ----------
