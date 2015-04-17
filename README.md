@@ -1,6 +1,6 @@
 Pair Up
 =====
-by Andre Helberg (@A-Helberg)
+by Andre Helberg ([@A_Helberg](http://twitter.com/a_helberg))
 
 [![Build Status](https://travis-ci.org/A-Helberg/pair-up.svg)](https://travis-ci.org/A-Helberg/pair-up)
 
