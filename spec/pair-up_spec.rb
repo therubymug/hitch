@@ -26,7 +26,7 @@ describe PairUp do
 
     context 'when pairing' do
       it 'returns the author and commiters names and emails' do
-        expect(PairUp::UI.highline).to receive(:say).with("Author: Turanga Leela <leela@futurama.test>, Comitter: Philip J. Fry <fry@futurama.test>")
+        expect(PairUp::UI.highline).to receive(:say).with("Author: Turanga Leela <leela@futurama.test>, Committer: Philip J. Fry <fry@futurama.test>")
         PairUp.current_pair = ['leela', 'fry']
         PairUp.print_info
       end
