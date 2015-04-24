@@ -10,7 +10,7 @@ module PairUp
 
   def self.print_info
     if PairUp.pairing? && STDOUT.tty?
-      PairUp::UI.highline.say("Author: #{PairUp.git_author_name} <#{PairUp.git_author_email}>, Comitter: #{PairUp.git_committer_name} <#{PairUp.git_committer_email}>")
+      PairUp::UI.highline.say("Author: #{PairUp.git_author_name} <#{PairUp.git_author_email}>, Committer: #{PairUp.git_committer_name} <#{PairUp.git_committer_email}>")
     end
   end
 
