@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = '1.3.5'
 
   s.name = %q{pair-up}
-  s.version = '1.0.1'
+  s.version = '1.0.2'
   s.date = Time.now.strftime('%F')
   s.license = 'MIT'
 
