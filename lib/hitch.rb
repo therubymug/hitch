@@ -6,7 +6,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch ui]))
 
 module Hitch
 
-  VERSION = '1.0.2'
+  VERSION = '1.0.3'
 
   def self.print_info
     if Hitch.pairing? && STDOUT.tty?
@@ -31,7 +31,7 @@ module Hitch
 
   def self.author_command
     if Hitch.pairing?
-      "export GIT_AUTHOR_NAME='#{Hitch.git_author_name}' GIT_AUTHOR_EMAIL='#{Hitch.git_author_email}'"
+      %Q{export GIT_AUTHOR_NAME="#{Hitch.git_author_name}" GIT_AUTHOR_EMAIL="#{Hitch.git_author_email}"}
     else
       "unset GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL"
     end

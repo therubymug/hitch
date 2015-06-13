@@ -2,7 +2,14 @@ require 'spec_helper'
 
 describe Hitch do
 
-  let(:hitch_pairs) {{'leela' => 'Turanga Leela', 'fry' => 'Philip J. Fry', 'zoidberg' => 'John A. Zoidberg'}}
+  let(:hitch_pairs) do
+    {
+      "conan"    => "Conan O'Brien",
+      "fry"      => "Philip J. Fry",
+      "leela"    => "Turanga Leela",
+      "zoidberg" => "John A. Zoidberg"
+    }
+  end
 
   let(:hitch_config) do
     { :group_email => 'dev@hashrocket.com',
@@ -47,7 +54,7 @@ describe Hitch do
     context 'when pairing' do
       it 'returns the export shell command for GIT_AUTHOR_NAME and GIT_AUTHOR_EMAIL' do
         Hitch.current_pair = ['leela', 'fry']
-        Hitch.author_command.should == "export GIT_AUTHOR_NAME='Philip J. Fry and Turanga Leela' GIT_AUTHOR_EMAIL='dev+fry+leela@hashrocket.com'"
+        Hitch.author_command.should == %q{export GIT_AUTHOR_NAME="Philip J. Fry and Turanga Leela" GIT_AUTHOR_EMAIL="dev+fry+leela@hashrocket.com"}
       end
     end
 
@@ -61,8 +68,13 @@ describe Hitch do
     context 'with more than 2 developers' do
       it "joins 3+ developers together with commas and an 'and'" do
         Hitch.current_pair = ['leela', 'fry', 'zoidberg']
-        Hitch.author_command.should == "export GIT_AUTHOR_NAME='Philip J. Fry, Turanga Leela, and John A. Zoidberg' GIT_AUTHOR_EMAIL='dev+fry+leela+zoidberg@hashrocket.com'"
+        Hitch.author_command.should == %q{export GIT_AUTHOR_NAME="Philip J. Fry, Turanga Leela, and John A. Zoidberg" GIT_AUTHOR_EMAIL="dev+fry+leela+zoidberg@hashrocket.com"}
       end
+    end
+
+    it 'escapes special characters' do
+      Hitch.current_pair = ["conan", "fry"]
+      Hitch.author_command.should == %q{export GIT_AUTHOR_NAME="Conan O'Brien and Philip J. Fry" GIT_AUTHOR_EMAIL="dev+conan+fry@hashrocket.com"}
     end
 
   end
