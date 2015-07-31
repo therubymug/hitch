@@ -1,6 +1,7 @@
 require 'rspec'
 require 'fileutils'
 require 'tempfile'
+require 'faraday'
 
 require File.join(File.dirname(__FILE__), '..', 'lib', 'hitch')
 

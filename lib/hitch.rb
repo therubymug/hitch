@@ -1,6 +1,7 @@
 require 'highline'
 require 'yaml'
 
+require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch assets]))
 require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch author]))
 require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib hitch ui]))
 
