@@ -49,6 +49,25 @@ describe Hitch do
 
   end
 
+  describe '.ssh_authorized_keys_command' do
+
+    context 'when pairing' do
+      it 'returns an echo command that wraps the current pair ssh keys with markers #HITCH_START and #HITCH_END' do
+        Hitch.current_pair = ['leela', 'fry']
+        Hitch.stub(:ssh_keys).and_return("ssh-rsa AAAAAfoo")
+        Hitch.ssh_authorized_keys_command.should == "if ! grep -Fq 'a AAAAAfoo' ~/.ssh/authorized_keys; then echo '#HITCH_START\nssh-rsa AAAAAfoo\n#HITCH_END' >> ~/.ssh/authorized_keys; fi"
+      end
+    end
+
+    context 'when not pairing' do
+      it 'returns a sed command that deletes all the lines between (and including) #HITCH_START and #HITCH_END' do
+        Hitch.current_pair = []
+        Hitch.ssh_authorized_keys_command.should == "cp ~/.ssh/authorized_keys{,.bak} && sed '/#HITCH_START/,/#HITCH_END/d' ~/.ssh/authorized_keys.bak > ~/.ssh/authorized_keys"
+      end
+    end
+
+  end
+
   describe '.author_command' do
 
     context 'when pairing' do
@@ -56,6 +75,7 @@ describe Hitch do
         Hitch.current_pair = ['leela', 'fry']
         Hitch.author_command.should == %q{export GIT_AUTHOR_NAME="Philip J. Fry and Turanga Leela" GIT_AUTHOR_EMAIL="dev+fry+leela@hashrocket.com"}
       end
+
     end
 
     context 'when not pairing' do
@@ -93,6 +113,10 @@ describe Hitch do
       Hitch.unhitch
     end
 
+    it 'writes the ssh key file' do
+      Hitch.should_receive(:write_ssh_key_file)
+      Hitch.unhitch
+    end
   end
 
   describe '.print_info' do

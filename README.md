@@ -14,7 +14,8 @@ Features:
 
 * Persists pair(s) between different terminal instances.
 * Creates a unique email address for the pair. (e.g. dev+fry+leela@hashrocket.com) This provides the ability to create a Gravatar for the pair.
-* Allows you to expire the pair information in N hours. e.g. hitch --expire 8 fry leela
+* Allows you to expire the pair information in N hours. (e.g. `hitch --expire 8 fry leela`)
+* Temporarily adds pair's ssh public keys to your `~/.ssh/authorized_keys`. (removes when you run `unhitch`)
 
 Synopsis:
 --------
