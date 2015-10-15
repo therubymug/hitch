@@ -4,20 +4,40 @@ describe Hitch::UI do
 
   describe '.prompt_for_group_email' do
 
+    let(:question_message) { "What is the group email? e.g. dev@hashrocket.com will become dev+therubymug+leshill@hashrocket.com" }
+
     it 'prompts for group email' do
-      Hitch::UI.highline.should_receive(:ask).with("What is the group email? e.g. dev@hashrocket.com will become dev+therubymug+leshill@hashrocket.com")
+      Hitch::UI.highline.should_receive(:ask).with(question_message)
       Hitch::UI.prompt_for_group_email
     end
 
     it 'returns the given group email' do
-      Hitch::UI.highline.stub(:ask).with("What is the group email? e.g. dev@hashrocket.com will become dev+therubymug+leshill@hashrocket.com").and_return('dev@hashrocket.com')
+      Hitch::UI.highline.stub(:ask).with(question_message).and_return('dev@hashrocket.com')
       Hitch::UI.prompt_for_group_email.should == 'dev@hashrocket.com'
     end
 
-    it 'sets Hitch.group_email' do
-      Hitch.should_receive('group_email=').with('dev@hashrocket.com')
-      Hitch::UI.highline.stub(:ask).with("What is the group email? e.g. dev@hashrocket.com will become dev+therubymug+leshill@hashrocket.com").and_return('dev@hashrocket.com')
-      Hitch::UI.prompt_for_group_email
+    context 'when group email contains a `+` in it' do
+      let(:group_email) { 'dev+hitch@hashrocket.com' }
+      it 'sets Hitch.group_email' do
+        question = double({:case= => nil, :validate= => nil})
+        question.should_receive(:case=).with(:down)
+        question.should_receive(:validate=).with(/\A[a-zA-Z0-9_\.\-\+]+@[a-zA-Z1-9\-]+\.[a-zA-Z0-9\-\.]+\z/)
+        Hitch.should_receive('group_email=').with(group_email)
+        Hitch::UI.highline.stub(:ask).with(question_message).and_yield(question).and_return(group_email)
+        Hitch::UI.prompt_for_group_email
+      end
+    end
+
+    context 'when group email does not contain a `+` in it' do
+      let(:group_email) { 'dev@hashrocket.com' }
+      it 'sets Hitch.group_email' do
+        question = double({:case= => nil, :validate= => nil})
+        question.should_receive(:case=).with(:down)
+        question.should_receive(:validate=).with(/\A[a-zA-Z0-9_\.\-\+]+@[a-zA-Z1-9\-]+\.[a-zA-Z0-9\-\.]+\z/)
+        Hitch.should_receive('group_email=').with(group_email)
+        Hitch::UI.highline.stub(:ask).with(question_message).and_yield(question).and_return(group_email)
+        Hitch::UI.prompt_for_group_email
+      end
     end
 
   end
