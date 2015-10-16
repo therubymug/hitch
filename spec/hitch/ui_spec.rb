@@ -15,8 +15,11 @@ describe Hitch::UI do
     end
 
     it 'sets Hitch.group_email' do
-      Hitch.should_receive('group_email=').with('dev@hashrocket.com')
-      Hitch::UI.highline.stub(:ask).with("What is the group email? e.g. dev@hashrocket.com will become dev+therubymug+leshill@hashrocket.com").and_return('dev@hashrocket.com')
+      question = double({:case= => nil, :validate= => nil})
+      question.should_receive(:case=).with(:down)
+      question.should_receive(:validate=).with(/\A[a-zA-Z0-9_\.\-\+]+@[a-zA-Z1-9\-]+\.[a-zA-Z0-9\-\.]+\z/)
+      Hitch.should_receive('group_email=').with('dev+hitch@hashrocket.com')
+      Hitch::UI.highline.stub(:ask).with("What is the group email? e.g. dev@hashrocket.com will become dev+therubymug+leshill@hashrocket.com").and_yield(question).and_return('dev+hitch@hashrocket.com')
       Hitch::UI.prompt_for_group_email
     end
 
