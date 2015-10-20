@@ -4,8 +4,9 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.rubygems_version = '1.3.5'
 
+  s.license = "MIT"
   s.name = %q{hitch}
-  s.version = '1.0.3'
+  s.version = '1.0.4'
   s.date = Time.now.strftime('%F')
 
   s.description = %q{Git author attribution helper for pair programmers.}
