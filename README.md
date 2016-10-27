@@ -33,6 +33,8 @@ Install:
 -------
 
 * gem install hitch
+* chruby users run this:
+<pre><code>for x in $(chruby | cut -c 3- | awk '{print $1}'); do chruby $x && gem install hitch; done</code></pre>
 * rvm users run this:
 <pre><code>for x in $(rvm list strings); do rvm use $x@global && gem install hitch; done</code></pre>
 * rbenv users run this:
