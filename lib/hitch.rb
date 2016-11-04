@@ -17,6 +17,7 @@ module Hitch
   def self.export(pairs)
     Hitch.current_pair = pairs
     write_export_file
+    write_ssh_key_file
     print_info
   end
 
@@ -27,6 +28,7 @@ module Hitch
   def self.unhitch
     Hitch.current_pair = []
     write_export_file
+    write_ssh_key_file
   end
 
   def self.author_command
@@ -104,7 +106,20 @@ module Hitch
     end
   end
 
+  def self.ssh_authorized_keys_command
+    if Hitch.pairing?
+      "if ! grep -Fq '#{ssh_keys[-10,10].chomp}' ~/.ssh/authorized_keys; then echo '#HITCH_START\n#{ssh_keys}\n#HITCH_END' >> ~/.ssh/authorized_keys; fi"
+    else
+      "cp ~/.ssh/authorized_keys{,.bak} && sed '/#HITCH_START/,/#HITCH_END/d' ~/.ssh/authorized_keys.bak > ~/.ssh/authorized_keys"
+    end
+  end
+
   private
+
+  def self.ssh_keys
+    urls = current_pair.map { |username| "https://github.com/#{username}.keys" }.join(" ")
+    %x{curl -s -w '\\n' #{urls}}
+  end
 
   def self.config
     @config ||= get_config
@@ -126,6 +141,10 @@ module Hitch
     File.expand_path('~/.hitch_export_authors')
   end
 
+  def self.hitch_ssh_keys
+    File.expand_path('~/.hitch_ssh_keys')
+  end
+
   def self.bin_path
     %x[which hitch].chomp
   end
@@ -144,7 +163,11 @@ module Hitch
   end
 
   def self.write_export_file
-    File.open(hitch_export_authors, 'w'){|f| f.write(author_command) }
+    File.open(hitch_export_authors, 'w') { |f| f.write(author_command) }
+  end
+
+  def self.write_ssh_key_file
+    File.open(hitch_ssh_keys, 'w') { |f| f.write(ssh_authorized_keys_command) }
   end
 
 end
