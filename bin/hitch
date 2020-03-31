@@ -17,6 +17,9 @@ opts = OptionParser.new do |opts|
   opts.on("-e N", "--expire N", Integer, "Expire pair information in N hours.") do |n|
     options = [:expire, n]
   end
+  opts.on("-g G", "--group G", "Set group email to G.") do |g|
+    options = [:group_email, g]
+  end
   opts.on("-u", "--unhitch", "Clear pair information") do
     options = [:unhitch]
   end
@@ -33,9 +36,15 @@ end
 
 if args.any?
   opts.parse!(args)
+
   if options.delete(:expire)
     system(Hitch.expire_command(options.pop))
   end
+
+  if options.delete(:group_email)
+    Hitch.group_email = options.pop
+  end
+
   options = [:export, args] if options.empty?
 else
   options = [:print_info]

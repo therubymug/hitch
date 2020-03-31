@@ -21,6 +21,8 @@ Synopsis:
 
 - For leela and fry to pair:
   - hitch leela fry
+- To override group email:
+  - hitch leela fry -g dev@hashrocket.com
 - To clear pair info:
   - hitch -u
 - For a complete list of features:
