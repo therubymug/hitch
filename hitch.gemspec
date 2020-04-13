@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.license = "MIT"
   s.name = %q{hitch}
-  s.version = '1.0.4'
+  s.version = '1.1.0'
   s.date = Time.now.strftime('%F')
 
   s.description = %q{Git author attribution helper for pair programmers.}
